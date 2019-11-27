@@ -1,3 +1,5 @@
+### Dudas
+
 Cliente default cuál es su funcionaliada o por qué se asocia a una sucursal?
 
 Como se calculan los descuentos de promociones, ej 2x1, todo lo que puedas comer o en compra de otro producto
@@ -8,6 +10,8 @@ Precio especial por dia D
 Descuento en día D
 Precio especial por compra Z
 
+
+### Dudas Solucionadas
 
 Diccionario de datos se especifica en la definición del esquema de la base de datos o en un documento
 Especificar cada campo en un documente aparte junto con su descripción.
@@ -33,3 +37,31 @@ Especificar cada campo en un documente aparte junto con su descripción.
 * El tipo de ingrediente más utilizado en tortas.
 * Los platillos que lleven más de 4 ingredientes y cuesten mas de 60 pesos
 * El total de los pedidos que no tienen un cliente guardado
+
+
+
+### Cosas a entregar
+
+* Diagrama entidad relacion (especificación)
+* Diagrama relacional
+* Documento con la normalización
+* Diagrama normalizado
+* DDL de la base
+* Población de la base de datos
+* Aplicacion
+    * Instalación de la aplicación
+    * Diagrama de clases
+    * JavaDoc
+* Documento con especificación del diccionario
+* SQL con las consultas
+* Resultado de las consultas (lo generamos cuando ya esté la aplicación)
+* README
+
+
+### Miercoles 27 de noviembre
+
+* La traduccion a relacional de las tablas más sencillas
+* El documento de la traduccion a entidad relación
+* Algunos datasets para mockaroo
+* Ir creando el diagrama relacional (https://dbdiagram.io/d/5dded11dedf08a25543e7454)
+
