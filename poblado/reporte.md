@@ -14,4 +14,5 @@ Junto con los datasets también se hizo uso de la herramienta [Mockaroo](https:/
 ### Fuentes de los datasets
 
 * Ingredientes - https://github.com/pantulis/recetario/blob/master/db/ingredients.csv
+* Municipios y Estados - https://github.com/developarts/cat_inegi/releases/tag/2018.09.v01
 * 
