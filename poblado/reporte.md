@@ -9,10 +9,10 @@ Todos estos datos divididos por categorías se colocaron en una carpeta llamada 
 
 ### Mockaroo
 
-Junto con los datasets también se hizo uso de la herramienta [Mockaroo](https://mockaroo.com/) para generar las inserciones a las tablase correspondientes.
+Junto con los datasets también se hizo uso de la herramienta [Mockaroo](https://mockaroo.com) para generar las inserciones a las tablase correspondientes.
 
 ### Fuentes de los datasets
 
 * Ingredientes - https://github.com/pantulis/recetario/blob/master/db/ingredients.csv
 * Municipios y Estados - https://github.com/developarts/cat_inegi/releases/tag/2018.09.v01
-* 
+* Correos electrónicos - https://mockaroo.com
