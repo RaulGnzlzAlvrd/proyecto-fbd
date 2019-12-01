@@ -1,0 +1,24 @@
+Cliente Default se agregará por triggers cada que creemos una nueva sucursal.
+Vamos a saber que un cliente es default porque el nombre estará en DEFAULT.
+El cliente puede estar registrado en una sola sucursal, aunque puede pedir y comprar de cualquiera (esto a partir de Pedido)
+
+Hay que aclarar que tenemos la tabla EmpleadosSucursal pues nos interesa el histórico de 
+traslados de empleados a otras sucursales.
+
+Pedidos se asocian a un único cliente pues aunque se pida por mesa sólo un cliente paga, y este es el que nos interesa.
+En caso de que se separen cuentas de mesa, se separan los pedidos de antemano (es decir, no hay que considerar el caso de la mesa en la BD)
+
+Se agrega la entidad Tipo para los tipos de platillo, que sirve para relacionarlos con las Promociones.
+
+
+Las promociones las vamos a restringir a actuar sólo sobre un tipo de producto en específico. También las vamos a considerar no acumulables, es decir, una sola por pedido.
+
+La entidad MateriaPrima reemplaza a mobiliario e Ingredientes. Se le añade un atributo "tipo" que servirá para diferenciar
+si es ingrediente o mobiliario, y con un Check se puede lograr que sólo los Ingredientes se relacionen con las salsas y 
+platillos.
+
+Se eliminó la entidad repartidor pues al pasar a SQL se presenta uno de los dos problemas siguientes:
+- O tenemos a todos los repartidores en la tabla Empleados:
+  * Esto genera que haya que hacer siempre dos consultas para agregar un repartidor (una con los datos que van en "Empleados" y otra ocn las que van en "Repartidores"; y no hay forma de implementar con un trigger que estén siempre en ambas tablas pues no podemos añadir sin recibir ambas partes de la información, esto implica hacer los añadidos a mano.
+- La otra posibilidad es tenerlos en tablas separadas, pero esto ocasiona el problema más común de trabajar con ER extendido en SQL:
+  * No es posible que hagamos referencia en la relación Trabajar tanto a la llave de "Repartidores" y "Empleados" en el mismo atributo. No podemos tener dis atributos separados pues ambos son parte de la llave primaria y ninguno puede ser nulo.
