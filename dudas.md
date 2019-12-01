@@ -60,7 +60,7 @@ Especificar cada campo en un documente aparte junto con su descripción.
 
 ### Miercoles 27 de noviembre
 
-* La traduccion a relacional de las tablas más sencillas (https://dbdiagram.io/d/5dded11dedf08a25543e7454) **Raziel**
+* La traduccion a relacional de las tablas más sencillas (https://dbdiagram.io/d/5de0b8cdedf08a25543e81fe) **Raziel**
 * El documento de la traduccion a entidad relación **Ernesto**
 * Algunos datasets para mockaroo (estados, ciudades) **Raúl**
 
