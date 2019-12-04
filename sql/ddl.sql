@@ -36,7 +36,6 @@ CREATE TABLE [Sucrusales] (
   [numero] int NOT NULL,
   [ciudad] nvarchar(30) NOT NULL,
   [estado] nvarchar(30) NOT NULL,
-  [codigo_postal] nvarchar(10) NOT NULL,
   CONSTRAINT "PK_Sucursales" PRIMARY KEY CLUSTERED(
     [numero_sucursal]
   )
@@ -48,7 +47,6 @@ CREATE TABLE [Clientes] (
   [apellido_paterno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [apellido_materno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [puntos] int NULL,
-  [codigo_postal] nvarchar(10) NULL,
   [calle] nvarchar(30) NULL,
   [numero] int NULL,
   [estado] nvarchar(30) NULL,
@@ -77,7 +75,6 @@ CREATE TABLE [Empleados] (
   [numero] int NOT NULL,
   [estado] nvarchar(30) NOT NULL,
   [ciudad] nvarchar(30) NOT NULL,
-  [codigo_postal] nvarchar(10) NOT NULL,
   [cuenta_bancaria] nvarchar(30) NOT NULL,
   [numero_seguro] integer NOT NULL,
   [tipo_transporte] nvarchar(20) NULL,
