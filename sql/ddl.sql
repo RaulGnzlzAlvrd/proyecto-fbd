@@ -30,7 +30,8 @@ PRINT N'Base de datos creada correctamente';
 SET DATEFORMAT dmy;
 USE TaqueroMucho;
 
-CREATE TABLE [Sucrusales] (
+-- Creación de la tabla sucursales
+CREATE TABLE [Sucursales] (
   [numero_sucursal] int IDENTITY (1, 1) NOT NULL,
   [calle] nvarchar(30) NOT NULL,
   [numero] int NOT NULL,
@@ -41,8 +42,12 @@ CREATE TABLE [Sucrusales] (
   )
 );
 
+-- Índices para la tabla sucursales
+CREATE INDEX "EstadoSucursal" ON [Sucursales]([estado]) 
+
+-- Creación de la tabla Clientes
 CREATE TABLE [Clientes] (
-  [correo] nvarchar(30) NOT NULL,
+  [correo_electronico] nvarchar(30) NOT NULL,
   [nombre] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [apellido_paterno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [apellido_materno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
@@ -54,21 +59,27 @@ CREATE TABLE [Clientes] (
   [telefono] nvarchar(14) NULL,
   [numero_sucursal] int NOT NULL,
   CONSTRAINT "PK_Clientes" PRIMARY KEY CLUSTERED(
-    [correo]
+    [correo_electronico]
   ),
   CONSTRAINT "FK_Clientes" FOREIGN KEY(
     [numero_sucursal]
-  )REFERENCES [Sucrusales](
+  )REFERENCES [Sucursales](
     [numero_sucursal]
   )
 );
 
+-- Índices para la tabla Clientes
+CREATE INDEX "ApellidoCliente" ON [Clientes]([apellido_paterno])
+CREATE INDEX "SucursalCliente" ON [Clientes]([numero_sucursal])
+
+-- Creación de la Tabla Empleados
 CREATE TABLE [Empleados] (
   [rfc] nchar(13) NOT NULL,
   [nombre] nvarchar(30) NOT NULL,
   [apellido_paterno] nvarchar(30) NOT NULL,
   [apellido_materno] nvarchar(30) NOT NULL,
   [curp] nchar(18) NOT NULL,
+  [tipo_empleado] nvarchar(30) NOT NULL,
   [tipo_sangre] nchar(2) NOT NULL,
   [fecha_nacimiento] date NOT NULL,
   [calle] nvarchar(30) NOT NULL,
@@ -79,33 +90,19 @@ CREATE TABLE [Empleados] (
   [numero_seguro] integer NOT NULL,
   [tipo_transporte] nvarchar(20) NULL,
   [licencia] nvarchar(20) NULL,
-  CONSTRAINT "PK_Empleados" PRIMARY KEY CLUSTERED(
-    [rfc]
-  )
-);
-
-CREATE TABLE [EmpleadosSucursal] (
-  [rfc] nchar(13) NOT NULL,
   [numero_sucursal] int NOT NULL,
   [salario] money NOT NULL,
-  [tipo_empleado] nvarchar(30) NOT NULL,
   [bonos] money NULL,
   [fecha_contratacion] datetime NOT NULL,
-  CONSTRAINT "PK_EmpleadosSucursal" PRIMARY KEY CLUSTERED(
-    [rfc], 
-    [numero_sucursal]
-  ),
-  CONSTRAINT "FK_EmpleadosSucursal_Empleados" FOREIGN KEY(
-    [rfc]
-  )REFERENCES [Empleados](
+  CONSTRAINT "PK_Empleados" PRIMARY KEY CLUSTERED(
     [rfc]
   ),
-  CONSTRAINT "FK_EmpleadosSucursal_Sucursal" FOREIGN KEY(
+  CONSTRAINT "FK_Empleados_Sucursal" FOREIGN KEY(
     [numero_sucursal]
-  )REFERENCES [Sucrusales](
+  )REFERENCES [Sucursales](
     [numero_sucursal]
   ),
-  CONSTRAINT "CK_EmpleadosSucursal_Tipo" CHECK(
+  CONSTRAINT "CK_Empleados_Tipo" CHECK(
     [tipo_empleado] = 'parrillero' OR 
     [tipo_empleado] = 'taquero' OR
     [tipo_empleado] = 'mesero' OR
@@ -113,8 +110,29 @@ CREATE TABLE [EmpleadosSucursal] (
     [tipo_empleado] = 'tortillero' OR
     [tipo_empleado] = 'repartidor'
   ),
+  CONSTRAINT "CK_Empleados_Repartidores" CHECK (
+    NOT ([tipo_empleado] = 'repartidor' AND
+         [transporte] = NULL)
+  ),
+  CONSTRAINT "CK_Empleados_Salario" CHECK (
+    [salario] > 0
+  ),
+  CONSTRAINT "CK_Empleados_Edad" CHECK (
+    FLOOR(DATEDIFF(DAY, [fecha_nacimiento], GETDATE())/365.25) >= 18
+  ),
+  CONSTRAINT "CK_Empleados_Contratacion" CHECK (
+    [fecha_contratacion] >= GETDATE()
+  ),
+  CONSTRAINT "CK_Licencia" CHECK (
+    NOT ([tipo_transporte] = 'Motocicleta' AND [licencia] = NULL)
+  )
 );
 
+-- Creación de Índices para la tabla Empleados
+CREATE INDEX "Empleados_Apellido" ON [Empleados]([apellido_paterno])
+CREATE INDEX "Empleados_Sucursal" ON [Empleados]([numero_sucursal])
+
+-- Creación de la tabla vendedores
 CREATE TABLE [Vendedores] (
   [rfc] nchar(12) NOT NULL,
   [nombre] nvarchar(30) NOT NULL,
@@ -124,6 +142,7 @@ CREATE TABLE [Vendedores] (
   )
 );
 
+-- Creación de la tabla MateriaPrima
 CREATE TABLE [MateriaPrima] (
   [id_articulo] int IDENTITY(1, 1) NOT NULL,
   [nombre] nvarchar(30) NOT NULL,
@@ -135,6 +154,10 @@ CREATE TABLE [MateriaPrima] (
     [tipo] = 'ingrediente' OR [tipo] = 'mobiliario'
   )
 );
+
+-- Creación de Índices para MateriaPrima
+CREATE INDEX "NombreArticulo" ON [MateriaPrima]([nombre])
+
 
 CREATE TABLE [Inventario] (
   [id_articulo] int NOT NULL,
@@ -156,7 +179,7 @@ CREATE TABLE [Inventario] (
   ),
   CONSTRAINT "FK_Inventario_Sucursal" FOREIGN KEY(
     [numero_sucursal]
-  ) REFERENCES [Sucrusales](
+  ) REFERENCES [Sucursales](
     [numero_sucursal]
   ),
   CONSTRAINT "FK_Inventario_Vendedores" FOREIGN KEY (
@@ -164,12 +187,21 @@ CREATE TABLE [Inventario] (
   ) REFERENCES [Vendedores](
     [rfc]
   ),
+  CONSTRAINT "CK_Inventario_Compra" CHECK (
+    [fecha_compra] <= GETDATE()
+  ),
   CONSTRAINT "CK_Inventario_Caducidad" CHECK (
     NOT ([fecha_caducidad] is NOT NULL 
     AND [fecha_caducidad] <= GETDATE())
   )
 );
 
+-- Creación de Índices para Inventario
+CREATE INDEX "Compra_Inventario" ON [Inventario]([fecha_compra])
+
+CREATE INDEX "Caducidad_Invenario" ON [Inventario]([fecha_caducidad])
+
+-- Creación de la Tabla Tipo
 CREATE TABLE [Tipo] (
   [id_tipo] int IDENTITY(1,1) NOT NULL,
   [nombre] nvarchar(20) NOT NULL,
@@ -178,6 +210,7 @@ CREATE TABLE [Tipo] (
   )
 );
 
+-- Creación de la tabla Platillos
 CREATE TABLE [Platillos] (
   [id_platillo] int IDENTITY(1, 1) NOT NULL,
   [id_tipo] int NOT NULL,
@@ -192,6 +225,12 @@ CREATE TABLE [Platillos] (
   )
 );
 
+-- Creación de Índices para la tabla Platillos
+CREATE INDEX "Tipo_platillo" ON [Platillos]([id_tipo])
+
+CREATE INDEX "nombre_platillo" ON [Platillos]([nombre])
+
+-- Creación de la tabla IngredientesPlatillo
 CREATE TABLE [IngredientesPlatillo] (
   [id_platillo] int NOT NULL,
   [id_articulo] int NOT NULL,
@@ -215,11 +254,14 @@ CREATE TABLE [IngredientesPlatillo] (
   )
 );
 
+-- Creación de índices para IngredientesPlatillo
+CREATE INDEX "Platillo_IngredientesPlatillo" ON [IngredientesPlatillo]([id_platillo])
 
+-- Creación de la tabla Salsas
 CREATE TABLE [Salsas] (
   [nombre_salsa] nvarchar(20) NOT NULL,
   [picor] nvarchar(20) NOT NULL
-  CONSTRAINT "PK_Salsas" PRIMARY KEY(
+  CONSTRAINT "PK_Salsas" PRIMARY KEY CLUSTERED(
     [nombre_salsa]
   ),
   CONSTRAINT "CK_Salsas_Picor" CHECK(
@@ -231,6 +273,7 @@ CREATE TABLE [Salsas] (
   )
 );
 
+-- Creación de la tabla IngredientesSalsa
 CREATE TABLE [IngredientesSalsa] (
   [nombre_salsa] nvarchar(20) NOT NULL,
   [id_articulo] int NOT NULL,
@@ -254,6 +297,10 @@ CREATE TABLE [IngredientesSalsa] (
   )
 );
 
+-- Creación de Índices para IngredientesSalsa
+CREATE INDEX "Salsa_IngredientesSalsa" ON [IngredientesSalsa]([nombre_salsa])
+
+-- Creación de la tabla Precios
 CREATE TABLE [Precios] (
   [id_platillo] int NOT NULL,
   [fecha] datetime NOT NULL,
@@ -267,11 +314,20 @@ CREATE TABLE [Precios] (
   ) REFERENCES [Platillos] (
     [id_platillo]
   ),
-  CONSTRAINT "CK_Precios" CHECK (
+  CONSTRAINT "CK_Precios_Precio" CHECK (
     [precio] >= 0
+  )
+  CONSTRAINT "CK_Precios_Fecha" CHECK (
+    [fecha] <= GETDATE()
   )
 );
 
+-- Creación de índices para la tabla Precios
+CREATE INDEX "Fecha_Precios" ON [Precios]([fecha])
+
+CREATE INDEX "Platillo_Precios" ON [Precios]([id_platillo])
+
+-- Creación de la tabla Recomendaciones
 CREATE TABLE [Recomendaciones] (
   [id_platillo] int NOT NULL,
   [nombre_salsa] nvarchar(20) NOT NULL,
@@ -291,6 +347,10 @@ CREATE TABLE [Recomendaciones] (
   )   
 );
 
+-- Creación de Índices para la tabla Recomendaciones
+CREATE INDEX "Platillo_Recomendaciones" ON [Recomendaciones]([id_platillo])
+
+-- Creación de la tabla PresentacionSalsas
 CREATE TABLE [PresentacionSalsas] (
   [nombre_salsa] nvarchar(20) NOT NULL,
   [tamanio] nvarchar(10) NOT NULL,
@@ -308,6 +368,7 @@ CREATE TABLE [PresentacionSalsas] (
   )
 );
 
+-- Creación de la Tabla Precios Salsas
 CREATE TABLE [PreciosSalsas] (
   [nombre_salsa] nvarchar(20) NOT NULL,
   [tamanio] nvarchar(10) NOT NULL,
@@ -330,6 +391,12 @@ CREATE TABLE [PreciosSalsas] (
   )
 );
 
+-- Creación de índices para la tabla PreciosSalsas
+CREATE INDEX "Fecha_PreciosSalsas" ON [PreciosSalsas]([fecha])
+
+CREATE INDEX "nombre_PreciosSalsas" ON [PreciosSalsas]([nombre_salsa])
+
+-- Creación de la tabla Pedidos
 CREATE TABLE [Pedidos] (
   [numero_ticket] int IDENTITY(1, 1) NOT NULL,
   [numero_sucursal] int NOT NULL,
@@ -342,16 +409,30 @@ CREATE TABLE [Pedidos] (
   ),
   CONSTRAINT "FK_Pedidos_Sucursal" FOREIGN KEY (
     [numero_sucursal]
-  ) REFERENCES [Sucrusales] (
+  ) REFERENCES [Sucursales] (
     [numero_sucursal]
   ),
   CONSTRAINT "FK_Pedidos_Cliente" FOREIGN KEY (
     [correo_cliente]
   ) REFERENCES [Clientes] (
-    [correo]
+    [correo_electronico]
   ),
+  CONSTRAINT "CK_fechaPedido" CHECK (
+    [fecha] <= GETDATE()
+  ),
+  CONSTRAINT "CK_pagoPedido" CHECK (
+    [metodo_pago] = 'Débito' OR
+    [metodo_pago] = 'Crédito' OR
+    [metodo_pago] = 'Puntos' OR
+    [metodo_pago] = 'Efectivo'
+  ),
+  -- Este Check evita que haya casos donde un cliente no registrado pague con puntos; El correo de los default tiene como formato numero_sucursal@DEFAULT
+  CONSTRAINT "CK_PuntosCliente" CHECK (
+    NOT ([metodo_pago] = 'Puntos' AND [correo_cliente LIKE '%@DEFAULT'])
+  )
 );
 
+-- Creación de la tabla Promociones
 CREATE TABLE [Promociones] (
   [id_promocion] int IDENTITY(1, 1) NOT NULL,
   [tipo_descuento] nvarchar(30) NOT NULL,
@@ -364,13 +445,25 @@ CREATE TABLE [Promociones] (
     [tipo_producto]
   ) REFERENCES [Tipo] (
     [id_tipo]
+  ),
+  -- Sólo permitimos cierto tipo de descuento
+  CONSTRAINT "CK_Promociones_Tipo_Desc" CHECK (
+    [tipo_descuento] = '2x1' OR 
+    [tipo_descuento] = 'Todo lo que puedas comer' OR
+    ISNUMERIC([tipo_descuento])
   )
 );
 
+-- Creación de Índices para la tabla Promociones
+CREATE INDEX "Dia_Promocion" ON [Promociones]([dia])
+CREATE INDEX "Tipo_Promocion" ON [Promociones]([tipo_descuento])
+
+-- Creación de la tabla PlatillosPedido
 CREATE TABLE [PlatillosPedido] (
   [numero_ticket] int NOT NULL,
   [id_platillo] int NOT NULL,
-  CONSTRAINT "PK_PlatillosPedido" PRIMARY KEY (
+  [cantidad] int NOT NULL,
+  CONSTRAINT "PK_PlatillosPedido" PRIMARY KEY CLUSTERED (
     [numero_ticket], 
     [id_platillo]
   ),
@@ -383,13 +476,21 @@ CREATE TABLE [PlatillosPedido] (
     [id_platillo]
   ) REFERENCES [Platillos] (
     [id_platillo]
+  ),
+  CONSTRAINT "CK_PlatillosPedido_Cantidad" CHECK (
+    [cantidad] > 0
   )
 );
 
+-- Creación de Índices para PlatillosPedido
+CREATE INDEX "Pedido_PlatillosPedido" ON [PlatillosPedido]([numero_ticket])
+
+-- Creación de la tabla SalsasPedido
 CREATE TABLE [SalsasPedido] (
   [numero_ticket] int NOT NULL,
   [nombre_salsa] nvarchar(20) NOT NULL,
   [tamanio] nvarchar(10) NOT NULL,
+  [cantidad] int NOT NULL,
   CONSTRAINT "PK_SalsasPedido" PRIMARY KEY (
     [numero_ticket], 
     [nombre_salsa],
@@ -406,11 +507,18 @@ CREATE TABLE [SalsasPedido] (
   ) REFERENCES [PresentacionSalsas] (
     [nombre_salsa],
     [tamanio]
+  ),
+  CONSTRAINT "CK_PedidosSalsas_Cantidad" CHECK (
+    [cantidad] > 0
   )
 );
 
+-- Creación de los índices para la tabla SalsasPedido
+CREATE INDEX "Pedido_SalsasPedido" ON [SalsasPedido]([numero_ticket])
+
+-- Creación de la tabla PromocionesPedido
 CREATE TABLE [PromocionesPedido] (
-  [numero_ticket] int NOT NULL,
+  [numero_ticket] int NOT NULL UNIQUE,
   [id_promocion] int NOT NULL,
   CONSTRAINT "PK_PromocionesPedido" PRIMARY KEY (
     [numero_ticket], 
