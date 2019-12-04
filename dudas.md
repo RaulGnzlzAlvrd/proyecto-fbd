@@ -20,23 +20,29 @@ Especificar cada campo en un documente aparte junto con su descripción.
 
 ### Consultas 
 
-* Platillo más vendido por sucursal
-* Ganancia por dia en sucursales
-* Tiempo de empleado en las sucursales que ha estado.
-* El platillo y salsa más comprado de cada cliente
-* El proveedor al que más se lo compra
-* Ganancia por platillo actual en cada sucursal
-* Platillos más vendidos a domicilio
-* Numero de platillo enctregados por tipo de transporte en cada sucursal
-* Cantidad y precio del inventario dividido por mes 
-* El estado con más clientes
-* El método de pago en cada sucursal
-* El total de todos los pagos de los empleados. 
-* El cliente que más ha gastado en los últimos 6 meses en cada sucursal.
-* La salsa más vendida junto con tacos.
-* El tipo de ingrediente más utilizado en tortas.
-* Los platillos que lleven más de 4 ingredientes y cuesten mas de 60 pesos
-* El total de los pedidos que no tienen un cliente guardado
+* 1. Platillo más vendido por sucursal
+* 2. Ganancia por dia en sucursales 
+* 3. Tiempo que lleva cada empleado en las sucursales que ha estado.
+* 4. El platillo y salsa más comprado de cada cliente
+* 5. El proveedor al que más se le compra
+* 6. Ganancia por platillo actual en cada sucursal 
+(las ganancias me causan ruido, se las cambio por:)
+* 6. Precio actual de cada platillo por sucursal.
+
+* 7. Platillos más vendidos a domicilio- 
+Como no hay forma de saber que son a domicilio se cambia a
+ Platillo más vendido usando tarjeta de credito.
+
+* 8. Numero de platillo entregados por tipo de transporte en cada sucursal
+* 9. Cantidad y precio del inventario dividido por mes 
+* 10. El estado con más clientes
+* 11. El método de pago en cada sucursal
+* 12. El total de todos los pagos de los empleados. 
+* 13. El cliente que más ha gastado en los últimos 6 meses en cada sucursal.
+* 14.La salsa más vendida junto con tacos.
+* 15. El tipo de ingrediente más utilizado en tortas.
+* 16. Los platillos que lleven más de 4 ingredientes y cuesten mas de 60 pesos
+* 17. El total de los pedidos que no tienen un cliente guardado
 
 
 
