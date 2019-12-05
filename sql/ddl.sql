@@ -112,7 +112,7 @@ CREATE TABLE [Empleados] (
   ),
   CONSTRAINT "CK_Empleados_Repartidores" CHECK (
     NOT ([tipo_empleado] = 'repartidor' AND
-         [transporte] = NULL)
+         [tipo_transporte] = NULL)
   ),
   CONSTRAINT "CK_Empleados_Salario" CHECK (
     [salario] > 0
@@ -316,7 +316,7 @@ CREATE TABLE [Precios] (
   ),
   CONSTRAINT "CK_Precios_Precio" CHECK (
     [precio] >= 0
-  )
+  ),
   CONSTRAINT "CK_Precios_Fecha" CHECK (
     [fecha] <= GETDATE()
   )
@@ -428,7 +428,7 @@ CREATE TABLE [Pedidos] (
   ),
   -- Este Check evita que haya casos donde un cliente no registrado pague con puntos; El correo de los default tiene como formato numero_sucursal@DEFAULT
   CONSTRAINT "CK_PuntosCliente" CHECK (
-    NOT ([metodo_pago] = 'Puntos' AND [correo_cliente LIKE '%@DEFAULT'])
+    NOT ([metodo_pago] = 'Puntos' AND [correo_cliente] LIKE '%@DEFAULT')
   )
 );
 
@@ -450,7 +450,7 @@ CREATE TABLE [Promociones] (
   CONSTRAINT "CK_Promociones_Tipo_Desc" CHECK (
     [tipo_descuento] = '2x1' OR 
     [tipo_descuento] = 'Todo lo que puedas comer' OR
-    ISNUMERIC([tipo_descuento])
+    ISNUMERIC([tipo_descuento]) = 1
   )
 );
 
@@ -535,3 +535,4 @@ CREATE TABLE [PromocionesPedido] (
     [id_promocion]
   )
 );
+
