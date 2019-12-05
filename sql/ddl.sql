@@ -47,7 +47,7 @@ CREATE INDEX "EstadoSucursal" ON [Sucursales]([estado])
 
 -- Creación de la tabla Clientes
 CREATE TABLE [Clientes] (
-  [correo_electronico] nvarchar(30) NOT NULL,
+  [correo_electronico] nvarchar(50) NOT NULL,
   [nombre] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [apellido_paterno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
   [apellido_materno] nvarchar(30) NOT NULL DEFAULT 'CLIENTE_DEFAULT',
@@ -403,7 +403,7 @@ CREATE TABLE [Pedidos] (
   [metodo_pago] nvarchar(10) NOT NULL,
   [no_mesa] int NULL,
   [fecha] datetime NOT NULL,
-  [correo_cliente] nvarchar(30) NOT NULL,
+  [correo_cliente] nvarchar(50) NOT NULL,
   CONSTRAINT "PK_Pedidos" PRIMARY KEY (
     [numero_ticket]
   ),
