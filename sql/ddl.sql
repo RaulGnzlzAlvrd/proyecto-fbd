@@ -35,7 +35,7 @@ CREATE TABLE [Sucursales] (
   [numero_sucursal] int IDENTITY (1, 1) NOT NULL,
   [calle] nvarchar(30) NOT NULL,
   [numero] int NOT NULL,
-  [ciudad] nvarchar(30) NOT NULL,
+  [ciudad] nvarchar(50) NOT NULL,
   [estado] nvarchar(30) NOT NULL,
   CONSTRAINT "PK_Sucursales" PRIMARY KEY CLUSTERED(
     [numero_sucursal]
@@ -55,7 +55,7 @@ CREATE TABLE [Clientes] (
   [calle] nvarchar(30) NULL,
   [numero] int NULL,
   [estado] nvarchar(30) NULL,
-  [ciudad] nvarchar(30) NULL,
+  [ciudad] nvarchar(50) NULL,
   [telefono] nvarchar(14) NULL,
   [numero_sucursal] int NOT NULL,
   CONSTRAINT "PK_Clientes" PRIMARY KEY CLUSTERED(
@@ -85,9 +85,9 @@ CREATE TABLE [Empleados] (
   [calle] nvarchar(30) NOT NULL,
   [numero] int NOT NULL,
   [estado] nvarchar(30) NOT NULL,
-  [ciudad] nvarchar(30) NOT NULL,
+  [ciudad] nvarchar(50) NOT NULL,
   [cuenta_bancaria] nvarchar(30) NOT NULL,
-  [numero_seguro] integer NOT NULL,
+  [numero_seguro] nvarchar(30) NOT NULL,
   [tipo_transporte] nvarchar(20) NULL,
   [licencia] nvarchar(20) NULL,
   [numero_sucursal] int NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE [Empleados] (
     FLOOR(DATEDIFF(DAY, [fecha_nacimiento], GETDATE())/365.25) >= 18
   ),
   CONSTRAINT "CK_Empleados_Contratacion" CHECK (
-    [fecha_contratacion] >= GETDATE()
+    [fecha_contratacion] <= GETDATE()
   ),
   CONSTRAINT "CK_Licencia" CHECK (
     NOT ([tipo_transporte] = 'Motocicleta' AND [licencia] = NULL)
@@ -403,7 +403,7 @@ CREATE TABLE [Pedidos] (
   [metodo_pago] nvarchar(10) NOT NULL,
   [no_mesa] int NULL,
   [fecha] datetime NOT NULL,
-  [correo_cliente] nvarchar(30) NOT NULL
+  [correo_cliente] nvarchar(30) NOT NULL,
   CONSTRAINT "PK_Pedidos" PRIMARY KEY (
     [numero_ticket]
   ),
