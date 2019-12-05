@@ -146,7 +146,7 @@ CREATE TABLE [Vendedores] (
 CREATE TABLE [MateriaPrima] (
   [id_articulo] int IDENTITY(1, 1) NOT NULL,
   [nombre] nvarchar(30) NOT NULL,
-  [tipo] nvarchar(10) NOT NULL,
+  [tipo] nvarchar(20) NOT NULL,
   CONSTRAINT "PK_MateriaPrima" PRIMARY KEY CLUSTERED(
     [id_articulo]
   ),
@@ -204,7 +204,7 @@ CREATE INDEX "Caducidad_Invenario" ON [Inventario]([fecha_caducidad])
 -- Creación de la Tabla Tipo
 CREATE TABLE [Tipo] (
   [id_tipo] int IDENTITY(1,1) NOT NULL,
-  [nombre] nvarchar(20) NOT NULL,
+  [nombre] nvarchar(40) NOT NULL,
   CONSTRAINT "PK_Tipo" PRIMARY KEY CLUSTERED (
     [id_tipo]
   )
@@ -214,7 +214,7 @@ CREATE TABLE [Tipo] (
 CREATE TABLE [Platillos] (
   [id_platillo] int IDENTITY(1, 1) NOT NULL,
   [id_tipo] int NOT NULL,
-  [nombre] nvarchar(40) NOT NULL
+  [nombre] nvarchar(50) NOT NULL
   CONSTRAINT "PK_Platillo" PRIMARY KEY CLUSTERED(
     [id_platillo]
   ),
@@ -435,6 +435,7 @@ CREATE TABLE [Pedidos] (
 -- Creación de la tabla Promociones
 CREATE TABLE [Promociones] (
   [id_promocion] int IDENTITY(1, 1) NOT NULL,
+  [nombre] nvarchar(50) NOT NULL,
   [tipo_descuento] nvarchar(30) NOT NULL,
   [dia] int NOT NULL,
   [tipo_producto] int NOT NULL,

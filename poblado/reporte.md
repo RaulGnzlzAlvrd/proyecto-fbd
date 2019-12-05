@@ -4,7 +4,7 @@ Para el poblado se usaron distintas fuentes de información que estarán listada
 
 ### Datasets
 
-Se obtuvo información de distintas páginas para obtener datos tales como ingredientes, nombres, rfc's, nombre de ingredientes, compañias e identificadores.
+Se obtuvo información de distintas páginas para obtener datos tales como ingredientes (Al cual le agregamos algunos ingredientes a mano típicos de taquería que faltaban), nombres, rfc's, nombre de ingredientes, compañias e identificadores.
 Todos estos datos divididos por categorías se colocaron en una carpeta llamada datasets y cada archivo está en un formato csv para facilitar el manejo.
 
 ### Mockaroo
@@ -17,3 +17,4 @@ Junto con los datasets también se hizo uso de la herramienta [Mockaroo](https:/
 * Municipios y Estados - https://github.com/developarts/cat_inegi/releases/tag/2018.09.v01
 * Correos electrónicos - https://mockaroo.com
 * RFC - https://mockaroo.com
+* Platillos - Apoyados en los menús de ejemplo y en la página de wikipedia de platillos mexicanos https://es.wikipedia.org/wiki/Anexo:Platillos_mexicanos
