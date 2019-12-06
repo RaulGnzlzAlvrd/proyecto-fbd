@@ -44,10 +44,15 @@ NOTA: En el documento los nombres de relación y atributos se escribirán sin ti
       \begin{itemize}
         \item rfc $\rightarrow$curp
         \item curp$\rightarrow$rfc
-        \item rfc$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, numero\_seguro, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
-        \item curp$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, numero\_seguro, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+        \item rfc$\rightarrow$numero\_seguro
+        \item curp$\rightarrow$numero\_seguro
+        \item numero\_seguro$\rightarrow$curp
+        \item numero\_seguro$\rightarrow$rfc
+        \item rfc$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+        \item curp$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+        \item numero\_seguro$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
       \end{itemize}
-      En este caso hay que hacer notar que tanto curp como rfc son llaves candidatas de esta relación, por lo que de nuevo, al todas las dependencias funcionales tener una de ellas del lado izquierdo, no se presentan violaciones a la 3NF.
+      En este caso hay que hacer notar que tanto curp como numero\_seguro y como rfc son llaves candidatas de esta relación, por lo que de nuevo, al todas las dependencias funcionales tener una de ellas del lado izquierdo, no se presentan violaciones a la 3NF.
 \item Vendedores(rfc, nombre, telefono)
       \begin{itemize}
         \item rfc$\rightarrow$nombre,telefono

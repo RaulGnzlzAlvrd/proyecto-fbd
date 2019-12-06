@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{hyperref}
+
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\rhead{7 de Diciembre de 2019}
+\lhead{Fundamentos de Bases de Datos}
+\headsep 1.5em
+
+\begin{document}
+
+\begin{center}
+	\LARGE{\textbf{Proyecto Final\\Traducción del Modelo Entidad Relación a Relacional}}
+\end{center}
+
+\section*{Procedimiento}
+Para describir el procedimiento de traducción lo que haremos es enlistar las relaciones del modelo relacional y explicar de qué entidades o relaciones provienen, así como de dónde provienen sus atributos.\\
+NOTA: Los atributos y nombres de relación no estarán tildados, la razón es porque de esta manera los nombramos en SQL Server.
+\begin{itemize}
+
+\item La relación \textbf{Sucursales} proviene de la Entidad \textit{Sucursal}, y sus atributos son exactamente los que se enlistan en la entidad del modelo ER:
+    \begin{itemize}
+    \item \textit{numero\_sucursal}, un identificador único asociado a cada sucursal, que será de tipo \textit{int} y será la \textbf{llave primaria.}
+    \item \textit{ciudad, estado, calle} y \textit{numero}, que son los atributes que componen el atributo compuesto \textit{direccion}, el cual no aparece en el modelo relacional por ser compuesto. Los tres primeros tipos deben ser de tipo \textit{varchar}, mientras que numero es un entero. 
+    \end{itemize}
+
+\item La relación \textbf{Clientes} viene de la entidad \textit{Cliente}, y entre sus atributos están los que se enlistan en la entidad, así como el número de la sucursal en la que se registró, el cual viene de la relación \textit{registrar} entre \textit{Cliente} y \textit{Sucursal}, pues es N:1.
+    \begin{itemize}
+    \item \textit{correo\_electronico} será del tipo \textit{varchar} y servirá como la \textbf{llave primaria} de la relación.
+    \item \textit{nombre, apellido\_materno, apellido\_paterno}, los atributos que corresponden al nombre completo, los tres de tipo \textit{varchar}
+    \item \textit{puntos}, los puntos que ha acumulado el cliente registrado. Este atributo tendrá como dominio los números enteros.
+    \item \textit{calle, numero, ciudad, estado} son los que corresponden a la dirección, y es el mismo caso que de la relación anterior.
+    \item \textit{telefono}, que será de tipo varchar para guardar los espacios o guiones entre los números.
+    \item \textit{numero\_sucursal}, el número de la sucursal en la que se registró, un entero y que pasa a esta tabla pues \textit{Clientes} tenían una relación muchos a uno con \textit{Sucursal}. Este atributo funciona como una \textbf{llave foránea}.
+    \end{itemize}
+
+\item La tabla \textbf{Empleados}, que viene de la entidad \textit{Empleado}, y sus atributos son:
+    \begin{itemize}
+    \item Aquellos que vienen de la entidad Empleado:
+    \begin{itemize}
+            \item \textit{rfc}, que escogimos para funcionar como \textbf{llave primaria}. Debe ser de tipo \textit{char(13)}, pues el rfc de personas físicas tiene una longitud fija de 13 caracteres.
+        \item \textit{nombre, apellido\_paterno, apellido\_materno}, correspondientes al nombre completo y el mismo caso que para Clientes.
+        \item \textit{curp}, que debe ser de tipo \textit{char(18)}.
+        \item \textit{calle, numero, ciudad, estado}, los correspondientes a la dirección y análogos al caso de las entidades anteriores.
+        \item \textit{fecha\_nacimiento}, de tipo \textit{date}. El atributo \textit{edad} no pasa a este modelo pues es derivado.
+        \item \textit{numeor\_seguro, cuenta\_bancaria, tipo\_sangre}, del tipo \textit{varchar}.
+        \item \textit{tipo\_transporte, licencia}. Atributos que no serán NULL sólo cuando el empleado sea Repartidor. 
+    \end{itemize}
+    \item Los atributos de la relación \textit{trabajar}, así como el número de sucursal, pues esta relación es N:1 entre \textit{Empleado} y \textit{Sucursal}:
+    \begin{itemize}
+        \item \textit{salario, bonos}, ambos de tipo \textit{money}.
+        \item \textit{fecha\_contratacion}, de tipo \textit{date}.
+        \item \textit{tipo\_empleado}, el tipo del empleado, de tipo \textit{varchar}.
+        \item \textit{numero\_sucursal}, el número de la sucursal en la que trabaja. Este atributo es una \textbf{llave foránea} que apunta a la relación Sucursales.
+    \end{itemize}
+    \end{itemize}
+\item La relación \textbf{Vendedores} viene de la entidad \textit{Vendedor} y sólo tiene los atributos asociados a esta relación:
+    \begin{itemize}
+    \item \textit{rfc}, que debe ser de tipo \textit{char(12)} pues se tratará de personas morales, y fungirá como \textbf{llave primaria} de la relación.
+    \item \textit{nombre, teléfono}, ambos de tipo
+    \textit{varchar.}
+\end{itemize}
+\item La tabla \textbf{MateriaPrima} viene de la entidad del mismo nombre y posee los mismos atributos que ésta:\begin{itemize}
+    \item \textit{id\_articulo}, de tipo entero, que será la \textbf{llave primaria}.
+    \item \textit{nombre, tipo}, ambos de tipo \textit{varchar}, el segundo nos dirá si es un ingrediente o un mobiliario u objeto.
+\end{itemize}
+\item La tabla \textbf{Inventario}, que también proviene de una entidad del mismo nombre, y posee los siguientes atributos:
+\begin{itemize}
+\item De la entidad \textit{Inventario:}
+\begin{itemize}
+\item \textit{precio\_unitario}, de tipo \textit{money}
+\item \textit{cantidad}, de tipo entero, que con lo anterior nos ayuda a calcular el atributo detivado \textit{cantidad\_compra}, el dinero total que se gastó en la compra.
+\item \textit{decha\_compra, fecha\_caducidad}, ambas de tipo \textit{date}.
+\end{itemize}
+\item \textit{Inventario} está en relaciones N:1 con \textit{MateriaPrima}, \textit{Sucursal} y \textit{Vendedor}, por lo que las llaves primarias de esta relación pasan como \textbf{llaves foráneas}: \textit{id\_articulo}, \textit{numero\_sucursal} y \textit{rfc\_provedor}; estas tres junto con la fecha de compra forman la \textbf{llave primaria}.
+\end{itemize}
+\item La tabla \textbf{Tipo} proviene de la entidad del mismo nombre y tiene solamente sus atributos, un \textit{id\_tipo}, que elegimos como \textbf{llave primaria}, y el \textit{nombre} del tipo de platillo, de tipo \textit{varchar}.
+\item La tabla \textbf{Platillos}, que viene de la entidad \textit{Platillo}, y tiene los siguientes atributos:
+\begin{itemize}
+\item \textit{id\_platillo}, un entero único que servirá como \textbf{llave primaria de la relación}.
+\item \textit{nombre}, de tipo \textit{varchar}, el nombre del platillo.
+\item El \textit{id\_tipo} del tipo de platillo que es, esta es una \textbf{llave foránea} que apunta a la tabla Tipo, y viene de que la relación entre Platillo y Tipo en E/R es N:1.
+\end{itemize}
+\item Como la relación entre \textit{Platillo} y \textit{MateriaPrima} en el modelo ER es N:M, esta relación se tiene que traducir a una tabla, la cual llamamos \textbf{IngredientesPlatillo}. Sus atributos son:
+\begin{itemize}
+\item \textit{id\_platillo}, que es una \textbf{llave foránea} del id del platillo al que pertenece el ingrediente.
+\item \textit{id\_articulo}, también una \textbf{llave foránea}, que es el id del identiicador, y que forma la \textbf{llave primaria} junto a id\_platillo.
+\item \textit{cantidad}, de tipo entero.
+\end{itemize}
+\item La entidad débil \textit{Precios} pasa como una relación, y además de los atributos de la entidad, que son \textit{precio} (de tipo \textit{money}) y \textit{fecha} (de tipo \textit{date}), se envía como \textit{llave foránea} el identificador del platillo al que pertenece. La \textbf{llave primaria} consiste de este identificador y la fecha en la que se agregue el precio.
+\item La entidad \textit{Salsa} pasa como una tabla \textbf{Salsas}, el cual tiene como atributos sólo los de dicha entidad, \textit{nombre}, que será su \textbf{llave primaria} y \textit{picor}, su nivel de picor, ambos de tipo \textit{varchar}.
+\item La tabla \textbf{IngredientesSalsas} sale de la relación entre \textit{Salsa} y \textit{MateriaPrima} que es N:M. Es análoga a IngredientesPlatillo.
+\item La entidad Presentación es una entidad débil, que se traduce como a tabla \textbf{PresentacionesSalsa}, y la cual tiene el atributo \textit{tamanio}, y el identificador de la salsa, \textit{nombre\_salsa}. Ambos atributos son la \textbf{llave} de esta relación.
+\item La entidad \textit{PreciosSalsa} se traduce de manera análoga a Precios, por lo que tenemos una tabla \textbf{PreciosSalsas}, en donde la \textbf{llave primaria} es el identificador de la presentación (nombre y tamaño de la salsa, que pasan como \textbf{llave foráneas}) y la fecha en que se puso el precio, y también tenemos un atributo que guarda el precio.
+\item Al ser de cardinalidad N:M, la relación entre Platillos y Salsas pasa como una tabla, \textbf{Recomendaciones}. Lo único que lleva esta tabla son dos \textbf{llaves foráneas}, el nombre de la salsa y el id del platillo. Ambas funcionan en conjunto como la \textbf{llave primaria}.
+\item La entidad \textit{Promocion} se convierte en la tabla \textbf{Promociones}. Sus atributos son:
+\begin{itemize}
+\item \textit{id\_promocion}, un identificador de tipo entero que servirá como \textbf{llave primaria}.
+\item \textit{dia}, de tipo entero, el día en que aplica la promoción.
+\item \textit{tipo\_descuento}, de tipo \textit{varchar}.
+\item \textit{id\_tipo}, el identificador del tipo en el que aplica. Este atributo pasa a la tablal pues la relacxión entre Promociones y Tipos es N:1.
+\end{itemize}
+\item La entidad \textit{Pedido}, pasa como una tabla, \textbf{Pedidos}. Los atributos de esta tabla serán:
+\begin{itemize}
+\item \textit{numero\_ticket}, un número único que servirá como \textbf{llave primaria}.
+\item \textit{no\_mesa}, el número de mesa (si aplica) del pedido, de tipo entero
+\item \textit{metodo\_pago} El método con el que se pagó el pedido.
+\item \textit{fecha} la fecha en la que se efectuó. 
+\item Todos los atributos anteriores son los correspondientes a la entidad pedido, excepto \textit{total}, que no aparece por ser derivado. Adicionalmente agregamos dos atributos que son llaves foráneas provenientes de relaciones N:1 en el modelo ER:
+\begin{itemize}
+\item \textit{numero\_sucursal}, que apunta a Sucursales.
+\item \textit{correo\_cliente}, que apunta a Clientes.
+\end{itemize}
+\end{itemize}
+\item la última tabla en nuestro modelo relacional es \textbf{ComponentesPedido}, que es la resultante de la relación n-aria que hay entre pedidos, presentaciones de salsas, platillos y promociones en el modelo ER. Traduciendo tenemos que crear una relación donde estén las llaves primarias de todas estas relaciones, por lo que nos quedamos con los atributos:
+\begin{itemize}
+\item \textit{numero\_ticket}
+\item \textit{id\_platillo}
+\item \textit{nombre\_salsa, tamanio}
+\item \textit{id\_promocion}
+\end{itemize}
+Todos ellos \textbf{llaves foráneas} y en su conjunto forman la \textbf{llave primaria}.
+\end{itemize}
+\section*{Dependencias Funcionales}
+\begin{itemize}
+
+\item \textbf{Sucursales(numero\_sucursal, calle, numero, ciudad, estado)}\\
+En esta relación, las únicas dependencias funcionales son:
+numero\_sucursal $\rightarrow$ calle, numero\_sucursal $\rightarrow$ numero, numero\_sucursal $\rightarrow$ ciudad y  numero\_sucursal $\rightarrow$ estado, pues el número de sucursal determina de manera única la dirección de la sucursal (cada sucursal tiene una única dirección, que no comparte con ninguna otra sucursal). Los atributos de la dirección no tienen dependencias funcionales entre sí, ni siquiera ciudad y estado, pues puede haber ciudades del mismo nombre en distintos estados de la repúlica.\\
+Aplicando la regla de la unión nos queda la dependencia funcional: numero\_sucursal $\rightarrow$ estado,ciudad,calle,numero.
+\item \textbf{Clientes(correo\_electronico, nombre, apellido\_paterno, apellido\_materno, puntos, calle, numero, ciudad, estado, telefono, numero\_sucursal)}\\
+Sabemos que el correo electrónico le corresponde a una única persona, y de esa manera determina al nombre y la dirección. Además al estar asociado a una cuenta, determina a los puntos que tiene y a la sucursal en la que se registró.\\
+Esto nos da la dependencia: correo$\rightarrow$nombre, apellido\_paterno, apellido\_materno, puntos, calle, numero, estado, ciudad, telefono, numero\_sucursal.\\
+Es la única DF, pues el nombre puede coincidir con dos o más clientes, y los demás no se determinan entre sí. 
+\item \textbf{Empleados(rfc, nombre, apellido\_paterno, apellido\_materno, curp,  tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, numero\_seguro, tipo\_transporte, licencia, numero\_sucursal, salario, bonos, \\ fecha\_contratacion)}\\
+En este caso tenemos que tanto el curp como el rfc determinan a una única persona, y por lo tanto se determinan entre sí. Es decir, tenemos curp$\rightarrow$rfc y rfc$\rightarrow$curp. De igual manera, el número de seguro también es personal y por lo tanto también tenemos curp $\rightarrow$ numero\_seguro, rfc $\rightarrow$ , numero\_seguro$\rightarrow$curp, numero\_seguro$\rightarrow$rfc. Estos tres atributos no pueden aparecer del lado derecho de ninguna otra dependencia funcional pues ni el nombre completo, aún con la fecha de nacimiento, ni la dirección ni infromación laboral corresponden únicamente a una persona. (Ni siquiera la cuenta bancaria, pues puede haber cotitulares). Y entre los demás atributos no hay dependencias funcionales pues el nombre (ni por partes ni completo) determina la dirección o la información laboral, pues el nombre puede repetirse, ni la información laboral depende de la dirección ni viceversa. \\
+Sin embargo, los tres atributos que pueden determinar de manera única a la persona sí tienen unos únicos valores de los demás atributos asociados, por lo que también tenemos:
+\begin{itemize}
+\item rfc$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, \\fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+        \item curp$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, \\ fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+        \item numero\_seguro$\rightarrow$nombre, apellido\_paterno, apellido\_materno, tipo\_empleado, tipo\_sangre, fecha\_nacimiento, calle, numero, estado, ciudad, cuenta\_bancaria, tipo\_transporte, licencia, numero\_sucursal, salario, bonos
+\end{itemize}
+\item \textbf{Vendedores(rfc, nombre, telefono)}\\
+En esta relación, un único rfc determina un nombre de la compañía y un teléfono, y son las únicas dependencias funcionales pues los nombres de las empresas se pueden repetir.\\
+Así, la única dependencia funcional que tenemos es rfc$\rightarrow$ nombre,telefono 
+\item \textbf{MateriaPrima(id\_articulo, nombre, tipo)}\\
+En este caso, el identificador del artículo determina al nombre y al tipo de manera única, por lo que tenemos: id\_articulo$\rightarrow$nombre y id\_articulo$\rightarrow$tipo\\
+Adicionalmente, los nombres de artículos no se repiten, por lo que también determinan de manera única al identificador y al tipo, por lo que también tenemos: nombre$\rightarrow$tipo y nombre$\rightarrow$id\_articulo
+\item \textbf{Inventario(id\_articulo, numero\_sucursal, fecha\_compra, precio\_unitario, cantidad, fecha\_caducidad, rfc\_provedor)}\\
+En el inventario se guardan compras, donde una compra está determinada por el artículo comprado, la sucursal que lo compra y la fecha en que se compra. Esto determina de manera única a los demás atributos pues el precio unitario en que se dio la venta, la cantidad que se compró, la fecha de caducidad y el vendedor son únicos por compra. Esto nos da la DF:\\
+id\_articulo,numero\_sucursal,fecha\_compra$\rightarrow$ precio\_unitario,cantidad,fecha\_caducidad,rfc\_provedor \\
+Y esta es la única DF pues los demás atributos no determinan un valor único de los demás, ni tampoco lo hacen con los de la izquierda-
+\item \textbf{Tipo(id\_tipo, nombre)}\\
+Aquí tenemos que un id corresponde a un único nombre de tipo, pero también lo inverso. Entonces tenemos: id\_tipo$\rightarrow$nombre y nombre$\rightarrow$id\_tipo.
+\item \textbf{Platillos(id\_platillo, nombre, id\_tipo)}\\
+En este caso, las únicas dependencias funcionales son: id\_platillo $\rightarrow$ nombre y id\_platillo $\rightarrow$ id\_tipo, pues a un platillo le corresponde un único tipo, y un único nombre. Y no tenemos la dependencia nombre $\rightarrow$ id\_tipo puesto que podemos tener dos especiales con el mismo nombre, por ejemplo ``El demoledor" puede ser tanto una Torta como un taco, y no tenemos restricción de que dos platillos no pueden llamarse de la misma manera.\\
+Aplicando la regla de la unión, tenemos id\_platillo $\rightarrow$ nombre,id\_tipo.
+\item \textbf{IngredientesPlatillo(id\_platillo, id\_articulo, cantidad)}\\
+Note que aquí sólo tenemos que el platillo y el ingrediente determinan una única cantidad, pues el platillo puede tener muchos ingredientes y viceversa. Así, la única dependencia funcional en este caso es: id\_platillo, id\_articulo $\rightarrow$ cantidad.
+\item \textbf{Precios(id\_platillo, fecha, precio)}\\
+En este caso, para un platillo en específico y una fecha, hay un único precio asociado. De esta forma, tenemos:\\
+id\_platillo, fecha $\rightarrow$ precio. 
+\item \textbf{Salsas(nombre\_salsa, picor)}\\
+En esta relación, sólo tenemos que una salsa tiene un único nombre y un único nivel de picor, por lo que sólo tenemos: nombre\_salsa$\rightarrow$picor.
+\item \textbf{IngredientesSalsas(nombre\_salsa, id\_articulo, cantidad)}\\
+Este caso es similar al de los ingredientes de los platillos, el nombre de la salsa y el id del artículo determinan únicamente a la cantidad y es la única dependencia funcional. Por lo tanto sólo tenemos nombre\_salsa, id\_articulo $\rightarrow$ cantidad. 
+\item \textbf{PresentacionesSalsa(nombre\_salsa, tamanio)}\\
+En este caso sólo tenemos las dependencias funcionales triviales, pues una misma salsa puede tener varios tamaños y viceversa.
+\item \textbf{PreciosSalsas(nombre\_salsa, tamanio, fecha, precio)}\\
+Este es un caso análogo al de Precios, pero en esta relación, tenemos que el nombre de la salsa, el tamaño, y la fecha, determina el precio.\\
+Así, tenemos: nombre\_salsa,tamanio,fecha$\rightarrow$precio.
+\item \textbf{Recomendaciones(id\_platillo, nombre\_salsa)}\\
+En este caso sólo tenemos las triviales, pues para un mismo platillo puede tener recomendadas varias salsas y viceversa.
+\item \textbf{Promociones(id\_promocion, tipo\_descuento, dia, tipo\_producto)}\\
+En esta relación sólo tenemos id\_promocion, $\rightarrow$ tipo\_descuento, dia, tipo\_producto, ya que tanto los días, los tipos de descuentos y los tipos de producto se pueden repetir en distintas promociones.
+\item \textbf{Pedidos(numero\_ticket, numero\_sucursal, metodo\_pago, no\_mesa, fecha, correo\_cliente)}\\
+Cada numero\_ticket tiene asociado un único Pedido, y cada pedido sólo se paga con un método, en una única sucursal, si es el caso en una única mesa; se hizo en una única fecha, y la hizo un único cliente. \\Así, tenemos numero\_ticket $\rightarrow$ numero\_sucursal, metodo\_pago,no\_mesa,fecha,correo\_cliente. Los demás atributos se pueden repetir en múltiples pedidos, y ninguno puede determinar a otro. 
+\item \textbf{ComponentesPedido(numero\_ticket, id\_platillo, id\_promocion, nombre\_salsa, tamanio)}
+En esta relación hay una única dependencia funcional: numero\_ticket$\rightarrow$id\_promocion, pues hemos decidido que las promociones no sean acumulables, por lo que a cada pedido le corresponde una única promoción. \\
+Sin embargo, en un mismo pedido puede haber muchos platillos y muchos tipos de salsa. Pero más aún, note que por cada tipo de salsa en un pedido, repetimos esta información por cada platillo pedido; y por cada platillo pedido en un pedido, repetimos la información por cada salsa pedida. Esto nos da un par de dependencias multivaluadas que pueden reultar útiles más adelante:\\
+$numero\_ticket \twoheadrightarrow id\_platillo$ y $numero\_ticket \twoheadrightarrow nombre\_salsa,tamanio$ 
+\end{itemize}
+\end{document}
