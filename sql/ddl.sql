@@ -65,7 +65,7 @@ CREATE TABLE [Clientes] (
     [numero_sucursal]
   )REFERENCES [Sucursales](
     [numero_sucursal]
-  )
+  ) ON DELETE CASCADE
 );
 
 -- Índices para la tabla Clientes
@@ -101,7 +101,7 @@ CREATE TABLE [Empleados] (
     [numero_sucursal]
   )REFERENCES [Sucursales](
     [numero_sucursal]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_Empleados_Tipo" CHECK(
     [tipo_empleado] = 'parrillero' OR 
     [tipo_empleado] = 'taquero' OR
@@ -176,17 +176,17 @@ CREATE TABLE [Inventario] (
     [id_articulo]
   )REFERENCES [MateriaPrima](
     [id_articulo]
-  ),
+  ) ON DELETE NO ACTION,
   CONSTRAINT "FK_Inventario_Sucursal" FOREIGN KEY(
     [numero_sucursal]
   ) REFERENCES [Sucursales](
     [numero_sucursal]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_Inventario_Vendedores" FOREIGN KEY (
     [rfc_provedor]
   ) REFERENCES [Vendedores](
     [rfc]
-  ),
+  ) ON DELETE NO ACTION,
   CONSTRAINT "CK_Inventario_Compra" CHECK (
     [fecha_compra] <= GETDATE()
   ),
@@ -222,7 +222,7 @@ CREATE TABLE [Platillos] (
     [id_tipo]
   ) REFERENCES [Tipo](
     [id_tipo]
-  )
+  ) ON DELETE NO ACTION
 );
 
 -- Creación de Índices para la tabla Platillos
@@ -243,12 +243,12 @@ CREATE TABLE [IngredientesPlatillo] (
     [id_articulo]
   ) REFERENCES [MateriaPrima] (
     [id_articulo]
-  ),
+  ) ON DELETE NO ACTION,
   CONSTRAINT "FK_IngredientesPlatillo_Platillo" FOREIGN KEY (
     [id_platillo]
   )REFERENCES [Platillos] (
     [id_platillo]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_IngredientesPlatillo_Cantidad" CHECK (
     NOT ([cantidad] is NOT NULL AND [cantidad] < 0)
   )
@@ -286,12 +286,12 @@ CREATE TABLE [IngredientesSalsa] (
     [id_articulo]
   ) REFERENCES [MateriaPrima] (
     [id_articulo]
-  ),
+  ) ON DELETE NO ACTION,
   CONSTRAINT "FK_IngredientesSalsa_Salsas" FOREIGN KEY (
     [nombre_salsa]
   )REFERENCES [Salsas] (
     [nombre_salsa]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_IngredientesSalsa_Cantidad" CHECK (
     NOT ([cantidad] is NOT NULL AND [cantidad] < 0)
   )
@@ -313,7 +313,7 @@ CREATE TABLE [Precios] (
     [id_platillo]
   ) REFERENCES [Platillos] (
     [id_platillo]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_Precios_Precio" CHECK (
     [precio] >= 0
   ),
@@ -339,12 +339,12 @@ CREATE TABLE [Recomendaciones] (
     [id_platillo]
   ) REFERENCES [Platillos] (
     [id_platillo]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_Precios_Salsas" FOREIGN KEY (
     [nombre_salsa]
   ) REFERENCES [Salsas] (
     [nombre_salsa]
-  )   
+  ) ON DELETE CASCADE 
 );
 
 -- Creación de Índices para la tabla Recomendaciones
@@ -362,7 +362,7 @@ CREATE TABLE [PresentacionSalsas] (
     [nombre_salsa]
   ) REFERENCES [Salsas] (
     [nombre_salsa]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_PresentacionesSalsa" CHECK (
     [tamanio] = '1 lt' OR [tamanio] = '30 mg' OR [tamanio] = '1 Kg'
   )
@@ -385,7 +385,7 @@ CREATE TABLE [PreciosSalsas] (
   ) REFERENCES [PresentacionSalsas] (
     [nombre_salsa],
     [tamanio]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_PreciosSalsa" CHECK (
     [precio] >= 0
   )
@@ -411,12 +411,12 @@ CREATE TABLE [Pedidos] (
     [numero_sucursal]
   ) REFERENCES [Sucursales] (
     [numero_sucursal]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_Pedidos_Cliente" FOREIGN KEY (
     [correo_cliente]
   ) REFERENCES [Clientes] (
     [correo_electronico]
-  ),
+  ) ON DELETE NO ACTION,
   CONSTRAINT "CK_fechaPedido" CHECK (
     [fecha] <= GETDATE()
   ),
@@ -437,7 +437,7 @@ CREATE TABLE [Promociones] (
   [id_promocion] int IDENTITY(1, 1) NOT NULL,
   [nombre] nvarchar(50) NOT NULL,
   [tipo_descuento] nvarchar(30) NOT NULL,
-  [dia] int NOT NULL,
+  [dia] int NOT NULL UNIQUE,
   [tipo_producto] int NOT NULL,
   CONSTRAINT "PK_Promociones" PRIMARY KEY (
     [id_promocion]
@@ -446,7 +446,7 @@ CREATE TABLE [Promociones] (
     [tipo_producto]
   ) REFERENCES [Tipo] (
     [id_tipo]
-  ),
+  ) ON DELETE CASCADE,
   -- Sólo permitimos cierto tipo de descuento
   CONSTRAINT "CK_Promociones_Tipo_Desc" CHECK (
     [tipo_descuento] = '2x1' OR 
@@ -472,12 +472,12 @@ CREATE TABLE [PlatillosPedido] (
     [numero_ticket]
   ) REFERENCES [Pedidos] (
     [numero_ticket]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_PlatillosPedido_Platillos" FOREIGN KEY (
     [id_platillo]
   ) REFERENCES [Platillos] (
     [id_platillo]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_PlatillosPedido_Cantidad" CHECK (
     [cantidad] > 0
   )
@@ -501,14 +501,14 @@ CREATE TABLE [SalsasPedido] (
     [numero_ticket]
   ) REFERENCES [Pedidos] (
     [numero_ticket]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_SalsasPedido_Salsas" FOREIGN KEY (
     [nombre_salsa],
     [tamanio]
   ) REFERENCES [PresentacionSalsas] (
     [nombre_salsa],
     [tamanio]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "CK_PedidosSalsas_Cantidad" CHECK (
     [cantidad] > 0
   )
@@ -529,11 +529,11 @@ CREATE TABLE [PromocionesPedido] (
     [numero_ticket]
   ) REFERENCES [Pedidos] (
     [numero_ticket]
-  ),
+  ) ON DELETE CASCADE,
   CONSTRAINT "FK_PromocionesPedido_Promociones" FOREIGN KEY (
     [id_promocion]
   ) REFERENCES [Promociones] (
     [id_promocion]
-  )
+  ) ON DELETE CASCADE
 );
 
