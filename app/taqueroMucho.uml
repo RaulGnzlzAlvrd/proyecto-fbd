@@ -1,103 +1,212 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>taqueroMucho.model.Sucursal</OriginalElement>
+  <OriginalElement>taqueroMucho.resources.ClienteController</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">taqueroMucho.repository.DAOSucursal</node>
-    <node x="0.0" y="326.0">org.springframework.boot.autoconfigure.SpringBootApplication</node>
-    <node x="0.0" y="252.0">taqueroMucho.resources.EmpleadoController</node>
-    <node x="62.583333333333314" y="99.0">taqueroMucho.repository.impl.DAOSucursalImpl</node>
-    <node x="289.37499999999994" y="0.0">taqueroMucho.repository.DAOEmpleado</node>
-    <node x="434.37499999999994" y="0.0">org.springframework.context.annotation.PropertySource</node>
-    <node x="389.0" y="326.0">taqueroMucho.model.Sucursal</node>
-    <node x="222.0" y="173.0">org.springframework.stereotype.Controller</node>
-    <node x="509.31249999999994" y="99.0">taqueroMucho.repository.impl.DAOClienteImpl</node>
-    <node x="600.375" y="0.0">taqueroMucho.repository.DAOCliente</node>
-    <node x="194.0" y="252.0">taqueroMucho.resources.SucursalController</node>
-    <node x="388.0" y="252.0">taqueroMucho.resources.ClienteController</node>
-    <node x="538.0" y="326.0">taqueroMucho.model.Cliente</node>
-    <node x="275.37499999999994" y="99.0">taqueroMucho.repository.impl.DAOEmpleadoImpl</node>
-    <node x="35.0" y="405.0">taqueroMucho.Application</node>
-    <node x="151.37499999999994" y="0.0">org.springframework.stereotype.Repository</node>
-    <node x="240.0" y="326.0">taqueroMucho.model.Empleado</node>
+    <node x="879.3980654761904" y="0.0">taqueroMucho.repository.DAOEmpleado</node>
+    <node x="454.8333333333333" y="0.0">org.springframework.context.annotation.PropertySource</node>
+    <node x="309.8333333333333" y="0.0">taqueroMucho.repository.DAOVendedor</node>
+    <node x="603.0" y="253.0">org.springframework.stereotype.Controller</node>
+    <node x="0.0" y="342.0">taqueroMucho.resources.VendedorController</node>
+    <node x="76.14136904761904" y="179.0">taqueroMucho.repository.impl.DAOClienteImpl</node>
+    <node x="582.0" y="342.0">taqueroMucho.resources.SalsasController</node>
+    <node x="1246.0699404761904" y="179.0">taqueroMucho.repository.impl.DAOPlatilloImpl</node>
+    <node x="0.0" y="416.0">taqueroMucho.model.Vendedor</node>
+    <node x="1315.564732142857" y="0.0">taqueroMucho.repository.DAOPlatillo</node>
+    <node x="0.0" y="0.0">taqueroMucho.repository.DAOCliente</node>
+    <node x="1094.0699404761904" y="179.0">taqueroMucho.repository.impl.DAOSalsaImpl</node>
+    <node x="395.0" y="342.0">taqueroMucho.resources.ClienteController</node>
+    <node x="673.3980654761904" y="179.0">taqueroMucho.repository.impl.DAOEmpleadoImpl</node>
+    <node x="741.3980654761904" y="0.0">org.springframework.stereotype.Repository</node>
+    <node x="149.0" y="416.0">taqueroMucho.model.Empleado</node>
+    <node x="150.83333333333326" y="0.0">taqueroMucho.repository.DAOSucursal</node>
+    <node x="762.0" y="342.0">taqueroMucho.resources.EmpleadoController</node>
+    <node x="298.0" y="416.0">taqueroMucho.model.Platillo</node>
+    <node x="242.14136904761898" y="179.0">taqueroMucho.repository.impl.DAOSucursalImpl</node>
+    <node x="1024.3980654761904" y="0.0">taqueroMucho.repository.DAOGeneric</node>
+    <node x="447.0" y="416.0">taqueroMucho.model.Sucursal</node>
+    <node x="1150.0" y="342.0">taqueroMucho.resources.DocumentosController</node>
+    <node x="415.141369047619" y="179.0">taqueroMucho.repository.impl.DAOVendedorImpl</node>
+    <node x="738.0" y="416.0">taqueroMucho.model.Salsa</node>
+    <node x="928.0699404761905" y="179.0">taqueroMucho.repository.impl.DAOGenericImpl</node>
+    <node x="194.0" y="342.0">taqueroMucho.resources.PlatillosController</node>
+    <node x="956.0" y="342.0">taqueroMucho.resources.SucursalController</node>
+    <node x="1174.064732142857" y="0.0">taqueroMucho.repository.DAOSalsa</node>
+    <node x="596.0" y="416.0">taqueroMucho.model.Cliente</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="taqueroMucho.Application" target="org.springframework.boot.autoconfigure.SpringBootApplication">
+    <edge source="taqueroMucho.repository.impl.DAOVendedorImpl" target="org.springframework.context.annotation.PropertySource">
       <point x="0.0" y="-14.5" />
+      <point x="491.641369047619" y="109.0" />
+      <point x="506.9761904761904" y="109.0" />
+      <point x="-20.85714285714289" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.resources.VendedorController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-14.5" />
+      <point x="87.0" y="302.0" />
+      <point x="611.4285714285714" y="302.0" />
+      <point x="-50.571428571428555" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOSalsaImpl" target="taqueroMucho.repository.DAOSalsa">
+      <point x="44.0" y="-14.5" />
+      <point x="1204.0699404761904" y="159.0" />
+      <point x="1226.064732142857" y="159.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOClienteImpl" target="org.springframework.context.annotation.PropertySource">
       <point x="0.0" y="-14.5" />
-      <point x="582.3125" y="79.0" />
-      <point x="556.0416666666665" y="79.0" />
-      <point x="48.66666666666663" y="14.5" />
+      <point x="149.14136904761904" y="99.0" />
+      <point x="465.26190476190476" y="99.0" />
+      <point x="-62.571428571428555" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOGenericImpl" target="taqueroMucho.repository.DAOGeneric">
+      <point x="48.66666666666663" y="-14.5" />
+      <point x="1049.736607142857" y="159.0" />
+      <point x="1083.3980654761904" y="159.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOPlatilloImpl" target="org.springframework.context.annotation.PropertySource">
+      <point x="-51.0" y="-14.5" />
+      <point x="1271.5699404761904" y="59.0" />
+      <point x="590.4047619047619" y="59.0" />
+      <point x="62.571428571428555" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOSalsaImpl" target="org.springframework.stereotype.Repository">
+      <point x="0.0" y="-14.5" />
+      <point x="1160.0699404761904" y="69.0" />
+      <point x="834.1123511904761" y="69.0" />
+      <point x="33.71428571428578" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.resources.SalsasController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.resources.ClienteController" target="org.springframework.stereotype.Controller">
       <point x="0.0" y="-14.5" />
-      <point x="471.5" y="227.0" />
-      <point x="320.33333333333337" y="227.0" />
-      <point x="39.33333333333337" y="14.5" />
+      <point x="478.5" y="322.0" />
+      <point x="645.1428571428571" y="322.0" />
+      <point x="-16.85714285714289" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOVendedorImpl" target="taqueroMucho.repository.DAOVendedor">
+      <point x="-51.0" y="-14.5" />
+      <point x="440.641369047619" y="89.0" />
+      <point x="372.3333333333333" y="89.0" />
+      <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOClienteImpl" target="taqueroMucho.repository.DAOCliente">
-      <point x="48.666666666666686" y="-14.5" />
-      <point x="630.9791666666666" y="79.0" />
-      <point x="659.375" y="79.0" />
+      <point x="-48.66666666666666" y="-14.5" />
+      <point x="100.47470238095241" y="159.0" />
+      <point x="59.0" y="159.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.resources.SucursalController" target="org.springframework.stereotype.Controller">
       <point x="0.0" y="-14.5" />
+      <point x="1043.0" y="312.0" />
+      <point x="695.7142857142858" y="312.0" />
+      <point x="33.71428571428578" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOPlatilloImpl" target="taqueroMucho.repository.DAOPlatillo">
+      <point x="51.0" y="-14.5" />
+      <point x="1373.5699404761904" y="159.0" />
+      <point x="1378.064732142857" y="159.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOSucursalImpl" target="taqueroMucho.repository.DAOSucursal">
       <point x="-51.0" y="-14.5" />
-      <point x="88.08333333333331" y="79.0" />
-      <point x="62.5" y="79.0" />
+      <point x="267.641369047619" y="89.0" />
+      <point x="213.33333333333326" y="89.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOSucursalImpl" target="org.springframework.context.annotation.PropertySource">
-      <point x="51.0" y="-14.5" />
-      <point x="190.08333333333331" y="69.0" />
-      <point x="458.70833333333326" y="69.0" />
-      <point x="-48.66666666666666" y="14.5" />
+      <point x="0.0" y="-14.5" />
+      <point x="318.641369047619" y="109.0" />
+      <point x="486.1190476190476" y="109.0" />
+      <point x="-41.71428571428572" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOSalsaImpl" target="org.springframework.context.annotation.PropertySource">
+      <point x="-44.0" y="-14.5" />
+      <point x="1116.0699404761904" y="79.0" />
+      <point x="569.547619047619" y="79.0" />
+      <point x="41.71428571428578" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOPlatilloImpl" target="org.springframework.stereotype.Repository">
+      <point x="0.0" y="-14.5" />
+      <point x="1322.5699404761904" y="49.0" />
+      <point x="850.9694940476189" y="49.0" />
+      <point x="50.571428571428555" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOGenericImpl" target="org.springframework.context.annotation.PropertySource">
+      <point x="-48.66666666666674" y="-14.5" />
+      <point x="952.4032738095237" y="99.0" />
+      <point x="548.6904761904761" y="99.0" />
+      <point x="20.85714285714289" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOClienteImpl" target="org.springframework.stereotype.Repository">
-      <point x="-48.666666666666686" y="-14.5" />
-      <point x="533.6458333333333" y="49.0" />
-      <point x="249.70833333333331" y="49.0" />
-      <point x="39.33333333333337" y="14.5" />
+      <point x="48.66666666666666" y="-14.5" />
+      <point x="197.80803571428567" y="119.0" />
+      <point x="749.8266369047618" y="119.0" />
+      <point x="-50.571428571428555" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOEmpleadoImpl" target="org.springframework.stereotype.Repository">
-      <point x="-51.0" y="-14.5" />
-      <point x="300.87499999999994" y="59.0" />
-      <point x="210.37499999999994" y="59.0" />
+      <point x="0.0" y="-14.5" />
+      <point x="749.8980654761904" y="149.0" />
+      <point x="800.3980654761904" y="149.0" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="taqueroMucho.resources.DocumentosController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-14.5" />
+      <point x="1244.0" y="302.0" />
+      <point x="712.5714285714286" y="302.0" />
+      <point x="50.571428571428555" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.resources.PlatillosController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-14.5" />
+      <point x="284.5" y="312.0" />
+      <point x="628.2857142857143" y="312.0" />
+      <point x="-33.714285714285666" y="14.5" />
+    </edge>
     <edge source="taqueroMucho.repository.impl.DAOEmpleadoImpl" target="org.springframework.context.annotation.PropertySource">
-      <point x="51.0" y="-14.5" />
-      <point x="402.87499999999994" y="79.0" />
-      <point x="507.37499999999994" y="79.0" />
+      <point x="-51.0" y="-14.5" />
+      <point x="698.8980654761904" y="109.0" />
+      <point x="527.8333333333333" y="109.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOEmpleadoImpl" target="taqueroMucho.repository.DAOEmpleado">
-      <point x="0.0" y="-14.5" />
+      <point x="51.0" y="-14.5" />
+      <point x="800.8980654761904" y="159.0" />
+      <point x="941.8980654761904" y="159.0" />
       <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOGenericImpl" target="org.springframework.stereotype.Repository">
+      <point x="-1.1368683772161603E-13" y="-14.5" />
+      <point x="1001.0699404761904" y="89.0" />
+      <point x="817.2552083333333" y="89.0" />
+      <point x="16.85714285714289" y="14.5" />
+    </edge>
+    <edge source="taqueroMucho.repository.impl.DAOVendedorImpl" target="org.springframework.stereotype.Repository">
+      <point x="51.0" y="-14.5" />
+      <point x="542.641369047619" y="139.0" />
+      <point x="783.5409226190475" y="139.0" />
+      <point x="-16.85714285714289" y="14.5" />
     </edge>
     <edge source="taqueroMucho.resources.EmpleadoController" target="org.springframework.stereotype.Controller">
       <point x="0.0" y="-14.5" />
-      <point x="87.0" y="227.0" />
-      <point x="241.66666666666666" y="227.0" />
-      <point x="-39.33333333333334" y="14.5" />
+      <point x="849.0" y="322.0" />
+      <point x="678.8571428571429" y="322.0" />
+      <point x="16.85714285714289" y="14.5" />
     </edge>
     <edge source="taqueroMucho.repository.impl.DAOSucursalImpl" target="org.springframework.stereotype.Repository">
-      <point x="0.0" y="-14.5" />
-      <point x="139.08333333333331" y="79.0" />
-      <point x="171.04166666666663" y="79.0" />
-      <point x="-39.333333333333314" y="14.5" />
+      <point x="51.0" y="-14.5" />
+      <point x="369.641369047619" y="129.0" />
+      <point x="766.6837797619047" y="129.0" />
+      <point x="-33.714285714285666" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="359.5" y="217.0" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.6707734428473648" x="720.5" y="222.5" />
+  <SelectedNodes>
+    <node>taqueroMucho.resources.ClienteController</node>
+  </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
