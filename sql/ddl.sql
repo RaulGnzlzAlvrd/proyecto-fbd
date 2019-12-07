@@ -80,7 +80,7 @@ CREATE TABLE [Empleados] (
   [apellido_materno] nvarchar(30) NOT NULL,
   [curp] nchar(18) NOT NULL,
   [tipo_empleado] nvarchar(30) NOT NULL,
-  [tipo_sangre] nchar(2) NOT NULL,
+  [tipo_sangre] nvarchar(3) NOT NULL,
   [fecha_nacimiento] date NOT NULL,
   [calle] nvarchar(30) NOT NULL,
   [numero] int NOT NULL,

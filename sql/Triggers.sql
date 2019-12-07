@@ -9,6 +9,7 @@ DECLARE @suc int
 SELECT @suc = s.numero_sucursal FROM Sucursales s JOIN Inserted i ON s.numero_sucursal = i.numero_sucursal
 insert into Clientes(correo_electronico, nombre, apellido_paterno, apellido_materno, numero_sucursal) values(CONCAT(STR(@suc), '@DEFAULT'), 'DEFAULT', 'DEFAULT', 'DEFAULT', @suc)
 END;
+GO
 
 -- Este trigger añade automáticamente la promoción que corresponde al día y al producto de un pedido si es que aplica.
 CREATE TRIGGER PromoPedido ON PlatillosPedido
@@ -29,7 +30,7 @@ BEGIN
 		END
 END
 END;
-
+GO
 -- Trigger que automáticamente Añade las Presentaciones de Salsas al añadir una salsa
 CREATE TRIGGER ADD_Salsas ON Salsas
 AFTER INSERT AS
@@ -41,7 +42,7 @@ BEGIN
 	INSERT INTO PresentacionSalsas values(@nombre, '30 mg')
 	INSERT INTO PresentacionSalsas values(@nombre, '1 Kg')
 END;
-
+GO
 -- Función que regresa 0 si el id que se le pasa como parámetro no corresponde a un ingrediente.
 CREATE FUNCTION EsIngrediente(@id int)
 RETURNS bit AS
@@ -52,7 +53,7 @@ BEGIN
 		RETURN 1
 	RETURN 0
 END;
-
+GO
 
 -- Función que nos regresa el precio actual de un platillo
 CREATE FUNCTION PrecioActual(@id int)
@@ -62,7 +63,7 @@ BEGIN
 	SELECT @precio = X.precio FROM (SELECT TOP(1) precio FROM Precios WHERE id_platillo = @id ORDER BY fecha DESC) AS X
 	RETURN @precio
 END;
-
+GO
 -- Función que nos regresa el precio actual de una presentación de salsa
 CREATE FUNCTION PrecioActualSalsa(@nombre nvarchar(20), @pres nvarchar(10))
 RETURNS float AS
@@ -74,7 +75,7 @@ BEGIN
 	ORDER BY fecha DESC) AS X
 	RETURN @precio
 END;
-
+GO
 -- Función Auxiliar que nos devuelve lo gastado en platillos de un pedido con ticket @ticket
 CREATE FUNCTION Total_Ped_Platillos(@ticket int)
 RETURNS float AS
@@ -87,7 +88,7 @@ BEGIN
 		RETURN 0.0
 	RETURN @res 	
 END;
-
+GO
 -- Función Auxiliar que nos devuelve lo gastado en salsas de un pedido con ticket @ticket
 CREATE FUNCTION Total_Ped_Salsas(@ticket int)
 RETURNS float AS
@@ -101,14 +102,14 @@ BEGIN
 		RETURN 0.0
 	RETURN @res 	
 END;
-
+GO
 -- Función que nos regresa el total de un pedido con un número de ticket @ticket
 CREATE FUNCTION Total_Pedido(@ticket int)
 RETURNS float AS
 BEGIN
 RETURN dbo.Total_Ped_Salsas(@ticket) + dbo.Total_Ped_Platillos(@ticket)
 END;
-
+GO
 -- Función que revisa que si un cliente va a pagar con puntos y pide un platillo, le alcance
 CREATE FUNCTION Valida_Platillos(@ticket int, @platillo int) 
 RETURNS bit AS
@@ -126,7 +127,7 @@ BEGIN
 		RETURN 0
 	RETURN 1	
 END;
-
+GO
 -- Función que revisa que si un cliente va a pagar con puntos y pide una salsa, le alcance
 CREATE FUNCTION Valida_Salsas(@ticket int, @nom nvarchar(20), @tam nvarchar(20)) 
 RETURNS bit AS
@@ -144,12 +145,12 @@ BEGIN
 		RETURN 0
 	RETURN 1	
 END;
-
+GO
 -- Añadimos Un Check a PlatillosPedido y Salsas Pedido para que no acepte platillos si no alcanzan los puntos
 ALTER TABLE PlatillosPedido ADD CONSTRAINT CK_Alcanza_Puntos CHECK(dbo.Valida_Platillos([numero_ticket], [id_platillo]) = 1);
 ALTER TABLE SalsasPedido 
 ADD CONSTRAINT CK_Alcanza_Puntos_Salsa CHECK(dbo.Valida_Salsas([numero_ticket], [nombre_salsa], [tamanio]) = 1);
-
+GO
 -- Trigger que decrementa el número de puntos de un cliente al comprar platillos que paga con puntos, 
 -- y los aumenta si no paga con puntos
 CREATE TRIGGER AumentaPuntos ON PlatillosPedido
@@ -170,7 +171,7 @@ BEGIN
 	ELSE
 		UPDATE Clientes SET puntos = @puntos + @bono WHERE correo_electronico = @correo
 END;
-
+GO
 -- Trigger que aumenta o decrementa el número de puntos de un cliente al comprar salsas dependiendo de si ága con puntos o no.
 CREATE TRIGGER AumentaPuntosSalsa ON SalsasPedido
 AFTER INSERT AS
@@ -190,7 +191,7 @@ BEGIN
 	ELSE
 		UPDATE Clientes SET puntos = @puntos + @bono WHERE correo_electronico = @correo
 END;
-
+GO
 -- Agregamos un Check a IngredientesPlatillo e IngredientesSalsas para que sólo sean ingredientes y no mobiliario
 ALTER TABLE IngredientesPlatillo ADD CONSTRAINT "CK_EsIngrediente_Platillos" CHECK(dbo.EsIngrediente([id_articulo]) = 1);
 ALTER TABLE IngredientesSalsa ADD CONSTRAINT "CK_EsIngrediente_Salsas" CHECK(dbo.EsIngrediente([id_articulo]) = 1);
