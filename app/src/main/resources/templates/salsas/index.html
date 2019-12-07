@@ -34,7 +34,6 @@
       <li class="nav-item active">
         <a class="nav-link" href="/salsas">Menú Salsas </a>
       <li class="nav-item">
-      <li class="nav-item">
         <a class="nav-link" href="/documentos">Documentos</a>
       </li>
       <li class="nav-item">
@@ -47,38 +46,24 @@
   </div>
 </nav>
 <a th:href="@{/}">Volver</a><br>
-<a th:href="@{/sucursal/crear}">Crear nueva sucursal</a>
 <table class="table">
     <tr>
-        <th scope="row" >Numero De sucursal</th>
-        <th scope="row" >Calle</th>
-        <th scope="row" >Numero</th>
-        <th scope="row" >Ciudad</th>
-        <th scope="row" >Estado</th>
-        <th scope="row" >Acciones</th>
+        <th scope="row" >nombre</th>
+        <th scope="row" >bolsa 1 lt</th>
+        <th scope="row" >bote 1 Kg</th>
+        <th scope="row" >bolsita 30 mg</th>
     </tr>
-    <div th:each="sucursal : ${sucursales}">
+    <div th:each="salsa : ${salsas}">
         <tr>
-            <td scope="row" th:text="${sucursal.getNumeroSucursal()}"></td>
-            <td scope="row" th:text="${sucursal.getCalle()}"></td>
-            <td scope="row" th:text="${sucursal.getNumero()}"></td>
-            <td scope="row" th:text="${sucursal.getCiudad()}"></td>
-            <td scope="row" th:text="${sucursal.getEstado()}"></td>
+            <td scope="row" th:text="${salsa.getNombre()}"></td>
+            <td scope="row" th:text="${salsa.getlt()}"></td>
+            <td scope="row" th:text="${salsa.getKg()}"></td>
+            <td scope="row" th:text="${salsa.getmg()}"></td>
         </tr>
     </div>
 </table>
 
 <!-- Footer -->
 <footer class="page-footer font-small red">
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">
-    <a class="prev" th:href="@{/sucursal/{id} (id = ${sucursal.getNumeroSucursal()})}">Ver</a>
-                |
-                <a class="prev" th:href="@{/sucursal/editar/{id} (id = ${sucursal.getNumeroSucursal()})}">Editar</a>
-                |
-                <a class="prev" th:href="@{/sucursal/eliminar/{id} (id = ${sucursal.getNumeroSucursal()})}">Eliminar</a>
-  </div>
-  <!-- Copyright -->
 </body>
 </html>

@@ -195,4 +195,26 @@ GO
 -- Agregamos un Check a IngredientesPlatillo e IngredientesSalsas para que sólo sean ingredientes y no mobiliario
 ALTER TABLE IngredientesPlatillo ADD CONSTRAINT "CK_EsIngrediente_Platillos" CHECK(dbo.EsIngrediente([id_articulo]) = 1);
 ALTER TABLE IngredientesSalsa ADD CONSTRAINT "CK_EsIngrediente_Salsas" CHECK(dbo.EsIngrediente([id_articulo]) = 1);
+GO
+
+-- Creamos una vista de Precios para consultar
+CREATE VIEW PreciosHoy AS
+SELECT DISTINCT pl.nombre, FORMAT(dbo.PrecioActual(p.id_platillo), 'c') precio
+FROM Precios p JOIN Platillos pl ON p.id_platillo = pl.id_platillo;
+GO
+
+-- Creamos una vista de Precios de Salsa para consultar
+CREATE VIEW PreciosHoySalsas AS
+WITH pivot_data AS
+(
+SELECT tamanio, nombre_salsa, dbo.PrecioActualSalsa(nombre_salsa, tamanio) precio 
+FROM PresentacionSalsas
+)
+SELECT nombre_salsa, [1 lt], [1 Kg], [30 mg]
+FROM pivot_data
+PIVOT
+(   MIN([precio]) 
+    FOR [tamanio] IN ([1 lt], [1 Kg], [30 mg]) 
+)AS p;
+GO
 
