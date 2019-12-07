@@ -6,6 +6,7 @@
 Para la instalación de la aplicación es necesario el siguiente software:
   - Maven 3.6.0
   - Java 8
+  - SQL Server 2017 (No se requiere una instancia local pero sí el usuario y la contraseña para alguna instancia)
 
 ### Configuración:
 Para configurar la aplicación se tiene que copiar el archivo en /src/main/resources/application.example.properties como application.properties en el mismo directorio, y configurarlo con el nombre de la base de datos (si se usó el archivo ddl.sql de nosotros, ya viene por defecto el nombre), el usuario y la cotraseña del super usuario del SMBD.
