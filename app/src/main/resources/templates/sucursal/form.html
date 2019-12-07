@@ -2,72 +2,96 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Taquero Mucho</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <style>
-.prev, .next {
-          cursor: pointer;
-          top: 50%;
-          width: auto;
-          padding: 16px;
-          margin-top: -22px;
-          color: white;
-          font-weight: bold;
-          font-size: 18px;
-          transition: 0.6s ease;
-          border-radius: 0 3px 3px 0;
-        }
+    .prev, .next {
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        border-radius: 0 3px 3px 0;
+    }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">TaqueroMucho</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="/">TaqueroMucho</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/sucursales">Sucursales <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/documentos">Documentos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Proximamente</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/sucursales">Sucursales <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/platillos">Menú Platillos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/salsas">Menú Salsas </a>
+            <li class="nav-item">
+            <li class="nav-item">
+                <a class="nav-link" href="/documentos">Documentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Proximamente</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="window.print();return false;">
+                Imprimir reporte
+            </button>
+        </form>
+    </div>
 </nav>
-<a class="prev" th:href="@{/sucursales}">Volver</a>
-<h1 th:text="${accion}"></h1>
-<form method="post" th:action="${pathAccion}">
-    <input name="numeroSucursal" type="hidden" th:value="${sucursal.getNumeroSucursal()}">
+<a th:href="@{/}">Volver</a><br>
+<div class="container">
+    <a class="prev" th:href="@{/sucursales}">Volver</a>
+    <h1 th:text="${accion}"></h1>
+    <form method="post" th:action="${pathAccion}">
+        <input name="numeroSucursal" type="hidden" th:value="${sucursal.getNumeroSucursal()}">
 
-    <div class="form-group">
-        <label for="uno">Calle</label>
-        <input id="uno" name="calle" class="form-control" type="text" placeholder="Ingrese la calle" th:value="${sucursal.getCalle()}" />
+        <div class="form-group">
+            <label for="uno">Calle</label>
+            <input id="uno" name="calle" class="form-control" type="text" placeholder="Ingrese la calle"
+                   th:value="${sucursal.getCalle()}"/>
 
+        </div>
+        <div class="form-group">
+            <label for="dos">Numero</label>
+            <input id="dos" name="numero" type="number" placeholder="Ingrese el numero"
+                   th:value="${sucursal.getNumero()}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="tres">Ciudad</label>
+            <input id="tres" name="ciudad" type="text" class="form-control" placeholder="Ingrese la ciudad"
+                   th:value="${sucursal.getCiudad()}">
+        </div>
+        <div class="form-group">
+            <label for="cuatro">Estado</label>
+            <input id="cuatro" name="estado" type="text" class="form-control" placeholder="Ingrese el estado"
+                   th:value="${sucursal.getEstado()}">
+        </div>
+        <button style="width: 180px;" type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="/disclaimer"> Política de Privacidad </a>
+        |
+        <a href="#"> TaqueroMucho.com</a>
     </div>
-    <div class="form-group">
-        <label for="dos">Numero</label>
-        <input id="dos" name="numero" type="number" placeholder="Ingrese el numero" th:value="${sucursal.getNumero()}"  class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="tres">Ciudad</label>
-        <input for="tres" name="ciudad" type="text" class="form-control" placeholder="Ingrese la ciudad" th:value="${sucursal.getCiudad()}">
-    </div >
-    <div class="form-group">
-        <label for="cuatro">Estado</label>
-        <input id="cuatro" name="estado" type="text" class="form-control" placeholder="Ingrese el estado" th:value="${sucursal.getEstado()}">
-    </div >
-    <button style="width: 180px;" type="submit" class="btn btn-primary">Guardar</button>
-  </div>
-
-</form>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
 </body>
 </html>

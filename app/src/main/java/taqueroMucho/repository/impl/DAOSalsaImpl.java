@@ -42,10 +42,10 @@ public class DAOSalsaImpl implements DAOSalsa {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Salsa salsa = new Salsa(
-                        rs.getString("nombre"),
-                        rs.getString("bolsa_1lt"),
-                        rs.getString("bote_1Kg"),
-                        rs.getString("bolsita_30mg")
+                        rs.getString("nombre_salsa"),
+                        rs.getString("1 lt"),
+                        rs.getString("1 Kg"),
+                        rs.getString("30 mg")
                 );
                 salsaList.add(salsa);
             }
