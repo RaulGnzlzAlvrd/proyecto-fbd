@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taquero Mucho</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<a th:href="@{/sucursal/crear}">Crear nueva</a>
+<table>
+    <tr>
+        <th>Numero De sucursal</th>
+        <th>Calle</th>
+        <th>Numero</th>
+        <th>Ciudad</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    <div th:each="sucursal : ${sucursales}">
+        <tr>
+            <td th:text="${sucursal.getNumeroSucursal()}"></td>
+            <td th:text="${sucursal.getCalle()}"></td>
+            <td th:text="${sucursal.getNumero()}"></td>
+            <td th:text="${sucursal.getCiudad()}"></td>
+            <td th:text="${sucursal.getEstado()}"></td>
+            <td>
+                <a th:href="@{/sucursal/{id} (id = ${sucursal.getNumeroSucursal()})}">Ver</a>
+                |
+                <a th:href="@{/sucursal/editar/{id} (id = ${sucursal.getNumeroSucursal()})}">Editar</a>
+                |
+                <a th:href="@{/sucursal/eliminar/{id} (id = ${sucursal.getNumeroSucursal()})}">Eliminar</a>
+            </td>
+        </tr>
+    </div>
+</table>
+</body>
+</html>

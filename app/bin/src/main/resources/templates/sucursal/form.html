@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taquero Mucho</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<a th:href="@{/sucursales}">Volver</a>
+<h1 th:text="${accion}"></h1>
+<form method="post" th:action="${pathAccion}">
+    <input name="numeroSucursal" type="hidden" th:value="${sucursal.getNumeroSucursal()}">
+    <div>
+        <input name="calle" type="text" placeholder="Calle" th:value="${sucursal.getCalle()}" />
+    </div>
+    <div>
+        <input name="numero" type="number" placeholder="Numero" th:value="${sucursal.getNumero()}">
+    </div>
+    <div>
+        <input name="ciudad" type="text" placeholder="Ciudad" th:value="${sucursal.getCiudad()}">
+    </div>
+    <div>
+        <input name="estado" type="text" placeholder="Estado" th:value="${sucursal.getEstado()}">
+    </div>
+    <div>
+        <button type="submit">Guardar</button>
+    </div>
+</form>
+</body>
+</html>

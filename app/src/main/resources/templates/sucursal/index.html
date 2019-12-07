@@ -3,9 +3,24 @@
 <head>
     <title>Taquero Mucho</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+<style>
+.prev, .next {
+          cursor: pointer;
+          top: 50%;
+          width: auto;
+          padding: 16px;
+          margin-top: -22px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          transition: 0.6s ease;
+          border-radius: 0 3px 3px 0;
+        }
+</style>
 <body>
-<a th:href="@{/sucursal/crear}">Crear nueva</a>
+<a class="prev" th:href="@{/sucursal/crear}">Crear nueva</a>
 <table>
     <tr>
         <th>Numero De sucursal</th>
@@ -22,15 +37,21 @@
             <td th:text="${sucursal.getNumero()}"></td>
             <td th:text="${sucursal.getCiudad()}"></td>
             <td th:text="${sucursal.getEstado()}"></td>
-            <td>
-                <a th:href="@{/sucursal/{id} (id = ${sucursal.getNumeroSucursal()})}">Ver</a>
-                |
-                <a th:href="@{/sucursal/editar/{id} (id = ${sucursal.getNumeroSucursal()})}">Editar</a>
-                |
-                <a th:href="@{/sucursal/eliminar/{id} (id = ${sucursal.getNumeroSucursal()})}">Eliminar</a>
-            </td>
         </tr>
     </div>
 </table>
+
+<!-- Footer -->
+<footer class="page-footer font-small red">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <a class="prev" th:href="@{/sucursal/{id} (id = ${sucursal.getNumeroSucursal()})}">Ver</a>
+                |
+                <a class="prev" th:href="@{/sucursal/editar/{id} (id = ${sucursal.getNumeroSucursal()})}">Editar</a>
+                |
+                <a class="prev" th:href="@{/sucursal/eliminar/{id} (id = ${sucursal.getNumeroSucursal()})}">Eliminar</a>
+  </div>
+  <!-- Copyright -->
 </body>
 </html>
