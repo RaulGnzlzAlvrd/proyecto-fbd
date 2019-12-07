@@ -126,7 +126,7 @@ public class DocumentosController {
         List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta7");
         model.addAttribute("filas", filas);
         model.addAttribute("encabezados", filas.get(0).keySet().toArray());
-        model.addAttribute("descripcion", "Platillos más vendidos con tarjeta de credito y débito.");
+        model.addAttribute("descripcion", "Platillos más vendidos usando efectivo.");
         return "documentos/genericDocument";
     }
 
