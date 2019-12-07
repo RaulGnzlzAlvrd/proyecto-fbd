@@ -1529,7 +1529,7 @@ insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Molcaj
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Chipotle', '1 Kg', '18/4/2018', '$62.53');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pico de Gallo', '1 lt', '25/12/2017', '$37.26');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Molcajete', '1 Kg', '3/6/2018', '$95.17');
-insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Verde', '1 Kg', '3/11/2018', '$56.77');
+insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Verde', '1 Lt', '3/11/2018', '$56.77');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pasilla', '1 lt', '11/1/2019', '$65.89');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pasilla', '1 lt', '25/8/2019', '$10.36');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pico de Gallo', '1 Kg', '14/3/2019', '$22.87');
