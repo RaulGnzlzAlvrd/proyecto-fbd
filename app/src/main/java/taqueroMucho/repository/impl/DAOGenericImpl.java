@@ -46,7 +46,6 @@ public class DAOGenericImpl implements DAOGeneric {
                 e.printStackTrace();
             }
         }
-        System.out.println(entriesList.toString());
         return entriesList;
     }
 }
