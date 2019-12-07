@@ -7,7 +7,6 @@
 </head>
 <style>
 .prev, .next {
-          cursor: pointer;
           top: 50%;
           width: auto;
           padding: 16px;
@@ -15,28 +14,49 @@
           color: white;
           font-weight: bold;
           font-size: 18px;
-          transition: 0.6s ease;
           border-radius: 0 3px 3px 0;
         }
 </style>
-<body>
-<a class="prev" th:href="@{/sucursal/crear}">Crear nueva</a>
-<table>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">TaqueroMucho</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/sucursales">Sucursales <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/documentos">Documentos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Proximamente</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="window.print();return false;" >Imprimir reporte</button>
+    </form>
+  </div>
+</nav>
+<a th:href="@{/sucursal/crear}">Crear nueva sucursal</a>
+<table class="table">
     <tr>
-        <th>Numero De sucursal</th>
-        <th>Calle</th>
-        <th>Numero</th>
-        <th>Ciudad</th>
-        <th>Estado</th>
-        <th>Acciones</th>
+        <th scope="row" >Numero De sucursal</th>
+        <th scope="row" >Calle</th>
+        <th scope="row" >Numero</th>
+        <th scope="row" >Ciudad</th>
+        <th scope="row" >Estado</th>
+        <th scope="row" >Acciones</th>
     </tr>
     <div th:each="sucursal : ${sucursales}">
         <tr>
-            <td th:text="${sucursal.getNumeroSucursal()}"></td>
-            <td th:text="${sucursal.getCalle()}"></td>
-            <td th:text="${sucursal.getNumero()}"></td>
-            <td th:text="${sucursal.getCiudad()}"></td>
-            <td th:text="${sucursal.getEstado()}"></td>
+            <td scope="row" th:text="${sucursal.getNumeroSucursal()}"></td>
+            <td scope="row" th:text="${sucursal.getCalle()}"></td>
+            <td scope="row" th:text="${sucursal.getNumero()}"></td>
+            <td scope="row" th:text="${sucursal.getCiudad()}"></td>
+            <td scope="row" th:text="${sucursal.getEstado()}"></td>
         </tr>
     </div>
 </table>
