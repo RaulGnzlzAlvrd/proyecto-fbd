@@ -1,18 +1,29 @@
 package taqueroMucho.resources;
 
 // Dependencias de Spring Boot
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+// Dependencias de Java
+import java.util.*;
+
 // Deendencias locales
 import taqueroMucho.repository.*;
+
 
 @Controller
 public class DocumentosController {
     @Autowired
     private DAOGeneric daoGeneric;
+
+    @GetMapping("/documentos")
+    public String index(Model model) {
+        model.addAttribute("size", 15);
+        return "documentos/index";
+    }
 
     /**
      * 1. Sucursal que más ha vendido
@@ -22,8 +33,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta1")
     public String consulta1(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta1"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta1");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Sucursal que más ha vendido.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -34,8 +48,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta2")
     public String consulta2(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta2"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta2");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Ganancia por dia en sucursales.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -46,8 +63,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta3")
     public String consulta3(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta3"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta3");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Tiempo que lleva cada empleado en las sucursales que ha estado.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -58,8 +78,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta4")
     public String consulta4(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta4"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta4");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Ventas totales de cada platillo.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -70,8 +93,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta5")
     public String consulta5(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta5"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta5");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "El proveedor al que más se le compra.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -82,8 +108,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta6")
     public String consulta6(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta6"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta6");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Precio actual de cada platillo por sucursal.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -94,8 +123,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta7")
     public String consulta7(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta7"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta7");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Platillos más vendidos con tarjeta de credito y débito.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -106,8 +138,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta8")
     public String consulta8(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta8"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta8");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Numero de platillo entregados por tipo de transporte en cada sucursal.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -118,8 +153,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta9")
     public String consulta9(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta9"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta9");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Numero de clientes del estado con mas usuarios.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -130,8 +168,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta10")
     public String consulta10(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta10"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta10");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Veces que cada metodo de pago ha sido usado en cada sucursal.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -142,8 +183,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta11")
     public String consulta11(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta11"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta11");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "Los platillos que lleven más de 4 ingredientes y cuesten mas de 60 pesos.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -154,8 +198,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta12")
     public String consulta12(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta12"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta12");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "El total de todos los pagos hechos a empleados. Se asume que el salario es mensual.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -166,8 +213,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta13")
     public String consulta13(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta13"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta13");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "La cantidad de dinero que más ha gastado un cliente en los últimos 6 meses en cada sucursal.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -178,8 +228,11 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta14")
     public String consulta14(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta14"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta14");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "La salsa más vendida junto con tacos.");
+        return "documentos/genericDocument";
     }
 
     /**
@@ -190,7 +243,10 @@ public class DocumentosController {
      */
     @GetMapping("/documento/consulta15")
     public String consulta15(Model model) {
-        model.addAttribute("datos", daoGeneric.genericQuery("consulta15"));
-        return "cliente/index";
+        List<HashMap<String, String>> filas = daoGeneric.genericQuery("consulta15");
+        model.addAttribute("filas", filas);
+        model.addAttribute("encabezados", filas.get(0).keySet().toArray());
+        model.addAttribute("descripcion", "El tipo de ingrediente más utilizado en tacos.");
+        return "documentos/genericDocument";
     }
 }
