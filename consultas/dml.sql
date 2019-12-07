@@ -31,7 +31,7 @@ SELECT SUM(pr.precio)as total_vendido,
 	INNER JOIN Precios pr on pr.id_platillo = pl.id_platillo
 	GROUP BY s.numero_sucursal,p.fecha;
 	
--- 3. Tiempo que lleva cada empleado en las sucursales que ha estado. 
+-- 3. Tiempo que lleva cada empleado en las sucursales que ha trabajado. 
 SELECT CASE WHEN fecha_contratacion IS NULL THEN DATEDIFF(day,fecha_contratacion,getdate())
             ELSE DATEDIFF(day,fecha_contratacion,getdate())
        END AS dias_trabajados,
