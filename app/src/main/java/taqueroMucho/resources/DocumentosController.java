@@ -19,6 +19,11 @@ public class DocumentosController {
     @Autowired
     private DAOGeneric daoGeneric;
 
+    @GetMapping("/disclaimer")
+    public String disclaimer(Model model) {
+        return "disclaimer";
+    }
+
     @GetMapping("/documentos")
     public String index(Model model) {
         model.addAttribute("size", 15);
