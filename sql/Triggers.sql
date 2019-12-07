@@ -218,5 +218,3 @@ PIVOT
     FOR [tamanio] IN ([1 lt], [1 Kg], [30 mg]) 
 )AS p;
 GO
-
-SELECT TRIM(CONCAT(STR(numero_sucursal), '@DEFAULT')) FROM Sucursales;

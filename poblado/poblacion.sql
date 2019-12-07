@@ -4609,6 +4609,9 @@ insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_client
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (37, 'Débito', 38, '22/3/2019', 'rdethloff7k@cbslocal.com');
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (18, 'Efectivo', 40, '19/11/2019', 'ljedrasik1i@nyu.edu');
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (4, 'Débito', 37, '19/1/2019', 'nlarnc7@chron.com');
+insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (1, 'Puntos', 37, '20/1/2019', 'abartali11@google.com');
+insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (1, 'Efectivo', 37, '20/1/2019', '1@DEFAULT');
+insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (501, 'Mexicana', '1 Kg', 2);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (1, 'Pico de Gallo', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (2, 'Mexicana', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (3, 'Ranchera', '30 mg', 3);
@@ -5209,6 +5212,8 @@ insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (470, 'Guacamole', '30 mg', 2);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (285, 'Pasilla', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (454, 'Habanero', '30 mg', 3);
+insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (501, 19, 2);
+insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (502, 68, 4);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (66, 41, 2);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (342, 16, 2);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (452, 68, 2);
