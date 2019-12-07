@@ -7,7 +7,7 @@ BEGIN
 SET NOCOUNT ON
 DECLARE @suc int
 SELECT @suc = s.numero_sucursal FROM Sucursales s JOIN Inserted i ON s.numero_sucursal = i.numero_sucursal
-insert into Clientes(correo_electronico, nombre, apellido_paterno, apellido_materno, numero_sucursal) values(CONCAT(STR(@suc), '@DEFAULT'), 'DEFAULT', 'DEFAULT', 'DEFAULT', @suc)
+insert into Clientes(correo_electronico, nombre, apellido_paterno, apellido_materno, numero_sucursal) values(TRIM(CONCAT(STR(@suc), '@DEFAULT')), 'DEFAULT', 'DEFAULT', 'DEFAULT', @suc)
 END;
 GO
 
@@ -153,6 +153,7 @@ ADD CONSTRAINT CK_Alcanza_Puntos_Salsa CHECK(dbo.Valida_Salsas([numero_ticket], 
 GO
 -- Trigger que decrementa el número de puntos de un cliente al comprar platillos que paga con puntos, 
 -- y los aumenta si no paga con puntos
+
 CREATE TRIGGER AumentaPuntos ON PlatillosPedido
 AFTER INSERT AS
 BEGIN
@@ -162,14 +163,14 @@ BEGIN
 	DECLARE @bono int
 	DECLARE @metpago nvarchar(20)
 	SELECT @metpago = P.metodo_pago FROM Pedidos P JOIN Inserted i ON P.numero_ticket = i.numero_ticket
-	SELECT @bono = FLOOR(dbo.PrecioActual(i.id_platillo)*i.Cantidad)*.1 
+	SELECT @bono = FLOOR(dbo.PrecioActual(i.id_platillo)*i.Cantidad)
 	FROM Inserted i
 	SELECT @correo = c.correo_electronico, @puntos = c.puntos 
 	FROM Clientes c JOIN Pedidos p ON c.correo_electronico = p.correo_cliente JOIN Inserted i ON p.numero_ticket = i.numero_ticket
 	IF @metpago = 'puntos'
 		UPDATE Clientes SET puntos = @puntos - @bono WHERE correo_electronico = @correo
 	ELSE
-		UPDATE Clientes SET puntos = @puntos + @bono WHERE correo_electronico = @correo
+		UPDATE Clientes SET puntos = @puntos + FLOOR(@bono*.1) WHERE correo_electronico = @correo
 END;
 GO
 -- Trigger que aumenta o decrementa el número de puntos de un cliente al comprar salsas dependiendo de si ága con puntos o no.
@@ -217,4 +218,3 @@ PIVOT
     FOR [tamanio] IN ([1 lt], [1 Kg], [30 mg]) 
 )AS p;
 GO
-

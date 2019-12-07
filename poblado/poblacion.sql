@@ -1529,7 +1529,7 @@ insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Molcaj
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Chipotle', '1 Kg', '18/4/2018', '$62.53');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pico de Gallo', '1 lt', '25/12/2017', '$37.26');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Molcajete', '1 Kg', '3/6/2018', '$95.17');
-insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Verde', '1 Kg', '3/11/2018', '$56.77');
+insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Verde', '1 Lt', '3/11/2018', '$56.77');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pasilla', '1 lt', '11/1/2019', '$65.89');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pasilla', '1 lt', '25/8/2019', '$10.36');
 insert into PreciosSalsas (nombre_salsa, tamanio, fecha, precio) values ('Pico de Gallo', '1 Kg', '14/3/2019', '$22.87');
@@ -4609,6 +4609,9 @@ insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_client
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (37, 'Débito', 38, '22/3/2019', 'rdethloff7k@cbslocal.com');
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (18, 'Efectivo', 40, '19/11/2019', 'ljedrasik1i@nyu.edu');
 insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (4, 'Débito', 37, '19/1/2019', 'nlarnc7@chron.com');
+insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (1, 'Puntos', 37, '20/1/2019', 'abartali11@google.com');
+insert into Pedidos (numero_sucursal, metodo_pago, no_mesa, fecha, correo_cliente) values (1, 'Efectivo', 37, '20/1/2019', '1@DEFAULT');
+insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (501, 'Mexicana', '1 Kg', 2);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (1, 'Pico de Gallo', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (2, 'Mexicana', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (3, 'Ranchera', '30 mg', 3);
@@ -5209,6 +5212,8 @@ insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (470, 'Guacamole', '30 mg', 2);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (285, 'Pasilla', '30 mg', 1);
 insert into SalsasPedido (numero_ticket, nombre_salsa, tamanio, cantidad) values (454, 'Habanero', '30 mg', 3);
+insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (501, 19, 2);
+insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (502, 68, 4);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (66, 41, 2);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (342, 16, 2);
 insert into PlatillosPedido (numero_ticket, id_platillo, cantidad) values (452, 68, 2);

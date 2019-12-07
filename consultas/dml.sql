@@ -78,7 +78,7 @@ FROM (
 	) sub
 GROUP BY sub.sucursal,sub.fecha, sub.precio
 ;
--- 7. Platillos más vendidos con tarjeta de credito y débito
+-- 7. Platillos más vendidos usando efectivo.
 SELECT COUNT(pl.id_platillo) AS total_vendidos,
        pl.nombre AS nombre_platillo,
        p.metodo_pago
