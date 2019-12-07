@@ -9,8 +9,7 @@ import taqueroMucho.model.Cliente;
 import taqueroMucho.repository.DAOCliente;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @PropertySource("classpath:application.queries.properties")
@@ -43,17 +42,17 @@ public class DAOClienteImpl implements DAOCliente {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Cliente cliente = new Cliente(
-                        rs.getString("correoElectronico"),
+                        rs.getString("correo_electronico"),
                         rs.getString("nombre"),
-                        rs.getString("apellidoPaterno"),
-                        rs.getString("apellidMaterno"),
+                        rs.getString("apellido_paterno"),
+                        rs.getString("apellid_materno"),
                         rs.getInt("puntos"),
                         rs.getString("calle"),
                         rs.getInt("numero"),
                         rs.getString("estado"),
                         rs.getString("ciudad"),
                         rs.getString("telefono"),
-                        rs.getInt("numeroSucursal")
+                        rs.getInt("numero_sucursal")
                 );
                 clientesList.add(cliente);
             }
