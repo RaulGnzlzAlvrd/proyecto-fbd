@@ -41,7 +41,7 @@ BEGIN
 	SELECT @nombre = i.nombre_salsa FROM Inserted i 
 	INSERT INTO PresentacionSalsas values(@nombre, '1 lt')
 	INSERT INTO PresentacionSalsas values(@nombre, '30 mg')
-	INSERT INTO PresentacionSalsas values(@nombre, '1 Kg')
+	INSERT INTO PresentacionSalsas values(@nombre, '1/2 Kg')
 END;
 GO
 -- Función que regresa 0 si el id que se le pasa como parámetro no corresponde a un ingrediente.
@@ -212,10 +212,10 @@ WITH pivot_data AS
 SELECT tamanio, nombre_salsa, dbo.PrecioActualSalsa(nombre_salsa, tamanio) precio 
 FROM PresentacionSalsas
 )
-SELECT nombre_salsa, [1 lt], [1 Kg], [30 mg]
+SELECT nombre_salsa, [1 lt], [1/2 Kg], [30 mg]
 FROM pivot_data
 PIVOT
 (   MIN([precio]) 
-    FOR [tamanio] IN ([1 lt], [1 Kg], [30 mg]) 
+    FOR [tamanio] IN ([1 lt], [1/2 Kg], [30 mg])
 )AS p;
 GO

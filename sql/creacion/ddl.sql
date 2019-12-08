@@ -366,7 +366,7 @@ CREATE TABLE [PresentacionSalsas] (
     [nombre_salsa]
   ) ON DELETE CASCADE,
   CONSTRAINT "CK_PresentacionesSalsa" CHECK (
-    [tamanio] = '1 lt' OR [tamanio] = '30 mg' OR [tamanio] = '1 Kg'
+    [tamanio] = '1 lt' OR [tamanio] = '30 mg' OR [tamanio] = '1/2 Kg'
   )
 );
 
