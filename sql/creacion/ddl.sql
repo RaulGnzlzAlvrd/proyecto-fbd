@@ -6,6 +6,7 @@ IF EXISTS (SELECT 1 FROM sys.databases WHERE [name] = 'TaqueroMucho')
 BEGIN
 DROP DATABASE TaqueroMucho
 END;
+GO
 --Creamos la base
 CREATE DATABASE TaqueroMucho
 ON PRIMARY
@@ -24,6 +25,7 @@ SIZE = 5MB,
 MAXSIZE = 100MB,
 FILEGROWTH = 5MB
 );
+GO
 PRINT N'Base de datos creada correctamente';
 
 -- Creación de las tablas de la base de datos

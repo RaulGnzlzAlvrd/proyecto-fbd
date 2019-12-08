@@ -1,4 +1,5 @@
 USE TaqueroMucho;
+GO
 
 -- Este Trigger sirve para que el cliente DEFAULT se añada de manera automática al crear una sucursal
 CREATE TRIGGER Cliente_Default ON Sucursales
