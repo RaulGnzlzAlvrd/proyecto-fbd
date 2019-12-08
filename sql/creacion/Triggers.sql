@@ -207,15 +207,15 @@ GO
 
 -- Creamos una vista de Precios de Salsa para consultar
 CREATE VIEW PreciosHoySalsas AS
-WITH pivot_data AS
+WITH pivot_sata AS
 (
 SELECT tamanio, nombre_salsa, dbo.PrecioActualSalsa(nombre_salsa, tamanio) precio 
 FROM PresentacionSalsas
 )
-SELECT nombre_salsa, [1 lt], [1/2 Kg], [30 mg]
-FROM pivot_data
+SELECT nombre_salsa, FORMAT([1 lt], 'c') bolsa_1lt, FORMAT([1/2 Kg], 'c') bote_medioKg, FORMAT([30 mg], 'c') bolsita_30mg
+FROM pivot_sata
 PIVOT
 (   MIN([precio]) 
-    FOR [tamanio] IN ([1 lt], [1/2 Kg], [30 mg])
+    FOR [tamanio] IN ([1 lt], [1/2 Kg], [30 mg]) 
 )AS p;
 GO

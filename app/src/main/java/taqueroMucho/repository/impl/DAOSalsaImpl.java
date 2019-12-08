@@ -43,9 +43,9 @@ public class DAOSalsaImpl implements DAOSalsa {
             while (rs.next()) {
                 Salsa salsa = new Salsa(
                         rs.getString("nombre_salsa"),
-                        rs.getString("1 lt"),
-                        rs.getString("1/2 Kg"),
-                        rs.getString("30 mg")
+                        rs.getString("bolsa_1lt"),
+                        rs.getString("bote_medioKg"),
+                        rs.getString("bolsita_30mg")
                 );
                 salsaList.add(salsa);
             }
